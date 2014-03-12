@@ -1,0 +1,12 @@
+<h1>Medical Search</h1>
+
+<%= form_tag("/text_mining/search", :method=>"post") do %>
+  <%= text_field_tag(:search_text) %>
+  <%= submit_tag("Search", :class=>"btn") %>
+<% end %>
+
+<h2>Results</h2>
+
+<%= @text %>
+
+

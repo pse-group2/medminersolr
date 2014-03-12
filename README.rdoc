@@ -1,0 +1,13 @@
+== README
+
+=== Ruby Version
+
+At the moment, we recommend using Ruby Version 2.0.0 with Rails 4.0.3.
+
+=== Running on localhost
+
+To start the server, go to the project location and run 'rails server'. In your browser, navigate to http://0.0.0.0:3000/.
+
+=== Treat
+
+To install treat, run gem install treat in your console.
