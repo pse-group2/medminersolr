@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'simple_form'
 
+gem 'mysql2'
+
 
 gem 'sunspot_rails'
 
