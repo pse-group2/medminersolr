@@ -5,7 +5,8 @@ Use git clone git@github.com:pse-group2/medminersolr.git to clone this project t
 
 Also, please check out the README.rdoc.
 
-===Synchronizing the original repository with your fork
+Synchronizing the original repository with your fork
+===
 
 Terminal > cd to local project directory on your computer, check with git status that you are in the right directory!
 Make an alias of the original project git remote add original https://github.com/pse-group2/medminersolr
