@@ -32,7 +32,10 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'simple_form'
 
-gem 'mysql2' 
+
+gem 'sunspot_rails'
+
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
