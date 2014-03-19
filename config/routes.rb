@@ -1,5 +1,9 @@
 Medminer::Application.routes.draw do
   
+  resources :pages
+
+  resources :articles
+
   match "text_mining/search" => "text_mining#search", :via => :post
   get "text_mining/search"
   
