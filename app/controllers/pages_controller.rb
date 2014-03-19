@@ -1,5 +1,15 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
+  
+  def index
+    @search = Post.search do
+      keywords params[:query]
+    end
+    @posts = @search.results
+  end
+  
+  
+  
 
   # GET /pages
   # GET /pages.json
