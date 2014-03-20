@@ -7,7 +7,11 @@
 
 <h2>Results</h2>
 <%= @text %>
-<%= @result %>
+<%= @print %>
+<% @pages.each do | page | %>
+<%= page.page_title %>
+<br/>
+<% end %>
 
 
 
