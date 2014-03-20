@@ -31,6 +31,9 @@ gem 'simple_form'
 
 gem 'mysql2'
 
+gem 'progress_bar'
+
+gem 'protected_attributes'
 
 gem 'sunspot_rails'
 

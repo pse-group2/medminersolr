@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140318204737) do
 
   create_table "archive", primary_key: "ar_id", force: true do |t|
     t.integer "ar_namespace",                       default: 0,                                                                                      null: false
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "archive", ["ar_namespace", "ar_title", "ar_timestamp"], name: "name_title_timestamp", using: :btree
   add_index "archive", ["ar_rev_id"], name: "ar_revid", using: :btree
   add_index "archive", ["ar_user_text", "ar_timestamp"], name: "ar_usertext_timestamp", using: :btree
+
+  create_table "articles", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "category", primary_key: "cat_id", force: true do |t|
     t.string  "cat_title",               null: false
