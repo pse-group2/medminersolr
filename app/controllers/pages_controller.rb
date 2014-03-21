@@ -14,9 +14,15 @@ class PagesController < ApplicationController
 
   # GET /pages
   # GET /pages.json
-  def index
-    @pages = Page.all
+
+def index
+  @search = Page.search do
+    fulltext params[:search]
   end
+  @articles = @search.results
+end
+
+
 
   # GET /pages/1
   # GET /pages/1.json

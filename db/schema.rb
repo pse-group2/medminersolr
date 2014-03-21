@@ -1,3 +1,4 @@
+
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -379,11 +380,6 @@ ActiveRecord::Schema.define(version: 20140318204737) do
   add_index "pagelinks", ["pl_from", "pl_namespace", "pl_title"], name: "pl_from", unique: true, using: :btree
   add_index "pagelinks", ["pl_namespace", "pl_title", "pl_from"], name: "pl_namespace", unique: true, using: :btree
 
-  create_table "pages", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "protected_titles", id: false, force: true do |t|
     t.integer "pt_namespace",               null: false
     t.string  "pt_title",                   null: false
@@ -676,3 +672,4 @@ ActiveRecord::Schema.define(version: 20140318204737) do
   add_index "watchlist", ["wl_user", "wl_namespace", "wl_title"], name: "wl_user", unique: true, using: :btree
 
 end
+
