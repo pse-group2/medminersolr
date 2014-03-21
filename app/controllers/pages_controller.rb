@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   def index
     @search = Post.search do
       keywords params[:query]
+      
     end
     @posts = @search.results
   end
