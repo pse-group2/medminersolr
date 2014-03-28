@@ -11,7 +11,7 @@
 
 development:
   adapter: mysql2
-  database: wikidb
+  database: mwiki
   username: root
   password: 
   encoding: utf8

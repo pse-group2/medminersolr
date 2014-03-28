@@ -2,12 +2,10 @@ class Text  < ActiveRecord::Base
 self.table_name = "text"
 
 searchable do
-	text :old_text
+	text :content
+	integer :page_id
+	integer :text_id 
 	
-end
-
-def text
-	old_text
 end
 
 
