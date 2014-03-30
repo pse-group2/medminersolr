@@ -18,3 +18,4 @@ pickle-email-*.html
 .project
 /solr/development/data/index/*
 /solr/development/data/tlog/*
+/.metadata/*
