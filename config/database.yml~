@@ -11,7 +11,7 @@
 
 development:
   adapter: mysql2
-  database: medwiki
+  database: wikidb
   username: root
   password: toor
   encoding: utf8
