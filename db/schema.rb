@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140318204737) do
 
   create_table "page", primary_key: "page_id", force: true do |t|
     t.text    "page_title"
-    t.integer "text_id"
+    t.integer "text_id",    null: false
   end
 
   create_table "pages", force: true do |t|
@@ -28,10 +28,9 @@ ActiveRecord::Schema.define(version: 20140318204737) do
     t.datetime "updated_at"
   end
 
-  create_table "text", id: false, force: true do |t|
+  create_table "text", primary_key: "text_id", force: true do |t|
     t.integer "page_id",                  null: false
     t.binary  "content", limit: 16777215
-    t.integer "text_id"
   end
 
 end
