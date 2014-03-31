@@ -1,14 +1,8 @@
 class Text  < ActiveRecord::Base
-self.table_name = "text"
+  self.table_name = "text"
 
-searchable do
-	text :old_text
-	
-end
-
-def text
-	old_text
-end
-
+  searchable do
+    text :content
+  end
 
 end

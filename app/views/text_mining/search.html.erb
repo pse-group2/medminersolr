@@ -1,14 +1,17 @@
 <h1>Medical Search</h1>
 
 <%= form_tag("/text_mining/search", :method=>"post") do %>
-  <%= text_field_tag(:search_text) %>
-  <%= submit_tag("Search", :class=>"btn") %>
+<%= text_field_tag(:search_text) %>
+<%= submit_tag("Search", :class=>"btn") %>
 <% end %>
 
 <h2>Results</h2>
-<%= @text %>
+
 <% @pages.each do | page | %>
-<%= page.page_title %>
+
+<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
+<% link = base_link << "#{page.page_id}"%>
+<%= link_to(page.page_title, link) %>
 <br/>
 <% end %>
 
