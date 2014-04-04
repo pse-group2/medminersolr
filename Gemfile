@@ -40,7 +40,15 @@ gem 'sunspot_rails'
 
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 
+# Testing
 gem 'rspec'
+
+# Text processing
+gem 'treat'
+gem 'engtagger'
+gem 'stanford-core-nlp'
+gem 'tactful_tokenizer'
+gem 'scalpel'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
