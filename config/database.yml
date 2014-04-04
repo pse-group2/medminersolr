@@ -12,10 +12,10 @@
 development:
   adapter: mysql2
 
-  database: mwiki
+  database: medwiki
 
   username: root
-  password:
+  password: toor
   encoding: utf8
   port: 3306
   host: localhost
