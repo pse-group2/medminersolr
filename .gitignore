@@ -16,7 +16,9 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 .project
+/.metadata/*
 /solr/development/data/index/*
 /solr/development/data/tlog/*
-/.metadata/*
 /solr/pids/development/*
+
+
