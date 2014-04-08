@@ -1,0 +1,11 @@
+body {
+   font-family: Helvetica, Geneva, Arial, sans-serif;
+   font-size: small;
+   color: #000;
+   background-color: #fff;
+   left: 50%;
+   margin-left: 45%;
+}
+a:link {
+   color: #008;
+}

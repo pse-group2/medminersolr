@@ -50,6 +50,7 @@ class SearchEngine
   def keyword_search(keywords_array)
 
     search = Sunspot.search(Text) do |query|
+     
       query.keywords keywords_array
     end
 

@@ -96,7 +96,7 @@
          indexing documents at once in IndexWriter; if more than this
          many threads arrive they will wait for others to finish.
          Default in Solr/Lucene is 8. -->
-    <maxIndexingThreads>2</maxIndexingThreads> 
+    <maxIndexingThreads>8</maxIndexingThreads> 
 
     <useCompoundFile>true</useCompoundFile>
 
@@ -107,8 +107,8 @@
          before flushing.
          If both ramBufferSizeMB and maxBufferedDocs is set, then
          Lucene will flush based on whichever limit is hit first.  -->
-    <ramBufferSizeMB>20</ramBufferSizeMB> -->
-    <maxBufferedDocs>10000</maxBufferedDocs>
+    <ramBufferSizeMB>200</ramBufferSizeMB> -->
+    <maxBufferedDocs>100000</maxBufferedDocs>
 
     <!-- Expert: Merge Policy 
          The Merge Policy in Lucene controls how merging of segments is done.
