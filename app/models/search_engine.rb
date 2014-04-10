@@ -12,7 +12,8 @@ class SearchEngine
 
     #search_for_nouns
     #tree_search
-    search_for_keywords
+    #search_for_keywords
+    search_for_fulltext
     @result_lists.first
   end
 
@@ -27,13 +28,15 @@ class SearchEngine
   def search_for_keywords
     keyword_search(@processor.keywords)
   end
+  
+  def search_for_fulltext
+    fulltext_search(@processor.keywords)
+  end
 
   def fulltext_search(text)
     search = Sunspot.search(Text) do |query|
       query.fulltext text
 
-      order_by(:score, :desc)
-      order_by(:average_rating, :desc)
     end
 
     results = search.results.map {|result| result.page }
