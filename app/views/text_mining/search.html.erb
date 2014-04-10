@@ -1,5 +1,3 @@
-<%= stylesheet_link_tag "gui" %>
-
 <center><h1>Medical Search</h1>
 
 <%= form_tag("/text_mining/search", :method=>"post") do %>
@@ -18,16 +16,18 @@
 		<td>
 			<h2>Results</h2>
 
-			<% @pages.each do | page | %>
-
-			<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
-			<% link = base_link << "#{page.page_id}"%>
-			<%= link_to(page.page_title, link) %>
-			<br/>
+			<%unless @results.blank? then%>
+				<% @results.all.each do | text | %>
+	
+				<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
+				<% link = base_link << "#{text.page.page_id}"%>
+				<%= link_to(text.page.page_title, link) %>
+				<br/>
+				<% end %>
 			<% end %>
 		</td>
 		<td>
-		<iframe src= "http://www.wikipedia.com">
+		<iframe src= "http://www.wikipedia.org">
 		</iframe>
 		</td>
 	</tr>
