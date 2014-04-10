@@ -36,6 +36,7 @@ class TextProcessor
     nouns
   end
 
+  # Returns an array of all the adjectives occurring in the text.
   def adjectives
     adjectives = Array.new
     words.each do |word|
@@ -51,21 +52,11 @@ class TextProcessor
   end
 
   def self.is_noun(word)
-    if word.category == 'noun'
-    result = true
-    else
-    result = false
-    end
-    result
+    word.category == 'noun'
   end
 
   def self.is_adjective(word)
-    if word.category == 'ajective'
-    result = true
-    else
-    result = false
-    end
-    result
+    word.category == 'ajective'
   end
 
   def parse_tree
