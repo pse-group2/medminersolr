@@ -36,6 +36,7 @@ class TextProcessor
     nouns
   end
 
+  # Returns an array of all the adjectives occurring in the text.
   def adjectives
     adjectives = Array.new
     words.each do |word|
