@@ -51,21 +51,11 @@ class TextProcessor
   end
 
   def self.is_noun(word)
-    if word.category == 'noun'
-    result = true
-    else
-    result = false
-    end
-    result
+    word.category == 'noun'
   end
 
   def self.is_adjective(word)
-    if word.category == 'ajective'
-    result = true
-    else
-    result = false
-    end
-    result
+    word.category == 'ajective'
   end
 
   def parse_tree
