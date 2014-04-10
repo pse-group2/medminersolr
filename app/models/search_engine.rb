@@ -13,6 +13,7 @@ class SearchEngine
     #search_for_nouns
     #tree_search
     search_for_keywords
+    fulltext_search(@input)
     @result_lists.first
   end
 
@@ -32,8 +33,6 @@ class SearchEngine
     search = Sunspot.search(Text) do |query|
       query.fulltext text
 
-      order_by(:score, :desc)
-      order_by(:average_rating, :desc)
     end
 
     results = search.results.map {|result| result.page }
@@ -50,7 +49,6 @@ class SearchEngine
   def keyword_search(keywords_array)
 
     search = Sunspot.search(Text) do |query|
-     
       query.keywords keywords_array
     end
 
