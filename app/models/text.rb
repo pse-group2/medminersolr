@@ -5,6 +5,7 @@ class Text  < ActiveRecord::Base
   belongs_to :page
 
   searchable do
+   
     text :content
   end
 

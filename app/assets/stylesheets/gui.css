@@ -3,9 +3,37 @@ body {
    font-size: small;
    color: #000;
    background-color: #fff;
-   left: 50%;
-   margin-left: 45%;
+   
 }
 a:link {
    color: #008;
 }
+
+h1{
+	font-size:40px;
+}
+form{
+	
+}
+h3{
+	margin-top = 0;
+	background: #900;
+	color: #fff;
+}
+div{
+	l
+	width: 100%;
+}
+iframe{
+	width: 100%;
+	height: 100%;
+
+}
+table{
+	margin-top: 20px;
+	width: 100%;
+	height: 100%;
+	background-color: #eef;
+}
+
+

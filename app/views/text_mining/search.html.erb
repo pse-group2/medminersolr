@@ -1,21 +1,35 @@
 <%= stylesheet_link_tag "gui" %>
 
-<h1>Medical Search</h1>
+<center><h1>Medical Search</h1>
 
 <%= form_tag("/text_mining/search", :method=>"post") do %>
 <%= text_field_tag(:search_text) %>
 <%= submit_tag("Search", :class=>"btn") %>
 <% end %>
+</center>
+<table>
 
-<h2>Results</h2>
+	<colgroup>
+		<col width= "50%">
+		<col width= "50%">
 
-<% @pages.each do | page | %>
+	</colgroup>
+	<tr>
+		<td>
+			<h2>Results</h2>
 
-<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
-<% link = base_link << "#{page.page_id}"%>
-<%= link_to(page.page_title, link) %>
-<br/>
-<% end %>
+			<% @pages.each do | page | %>
 
-
+			<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
+			<% link = base_link << "#{page.page_id}"%>
+			<%= link_to(page.page_title, link) %>
+			<br/>
+			<% end %>
+		</td>
+		<td>
+		<iframe src= "http://www.wikipedia.com">
+		</iframe>
+		</td>
+	</tr>
+</table>
 
