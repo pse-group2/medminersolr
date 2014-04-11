@@ -10,11 +10,11 @@
 	<h2>Results</h2>
 
 	<%unless @results.blank? then%>
-	<% @results.all.each do | text | %>
+	<% @results.each do | page | %>
 
 	<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
-	<% link = base_link << "#{text.page.page_id}"%>
-	<%= link_to(text.page.page_title, link) %>
+	<% link = base_link << "#{page.page_id}"%>
+	<%= link_to(page.page_title, link) %>
 	<br/>
 	<% end %>
 	<% end %>

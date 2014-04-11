@@ -4,7 +4,14 @@ class TextMiningController < ApplicationController
     
     unless @text.blank? then
       engine = SearchEngine.new(@text)
-      @results = engine.search_results
+      list = engine.search_results
+      
+      @results = Array.new
+      list.all.each do |hit|
+        key = hit.primary_key
+        page = Page.where(:text_id => key).first
+        @results.push page
+      end
     end
 
   end
