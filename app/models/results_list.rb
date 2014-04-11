@@ -1,7 +1,8 @@
 class ResultsList
   
   def initialize (sunspot_hits)
-    @hits = sunspot_hits
+    @hits = sunspot_hits.compact
+    puts @hits
   end
   
   def count
@@ -33,7 +34,8 @@ class ResultsList
     p_keys = result_list.all.map {|hit| hit.primary_key}
     
     intersect = p_keys_us & p_keys 
-    
+    puts intersect
+    puts 'BREAK'
     intersect_hits = Array.new
     
     intersect.each do |key|
