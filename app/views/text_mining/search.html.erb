@@ -1,35 +1,25 @@
-<center><h1>Medical Search</h1>
+<center>
+	<h1>Medical Search</h1>
 
-<%= form_tag("/text_mining/search", :method=>"post") do %>
-<%= text_field_tag(:search_text) %>
-<%= submit_tag("Search", :class=>"btn") %>
-<% end %>
+	<%= form_tag("/text_mining/search", :method=>"post") do %>
+	<%= text_field_tag(:search_text) %>
+	<%= submit_tag("Search", :class=>"btn") %>
+	<% end %>
 </center>
-<table>
+<div id="resultsframe">
+	<h2>Results</h2>
 
-	<colgroup>
-		<col width= "50%">
-		<col width= "50%">
+	<%unless @results.blank? then%>
+	<% @results.all.each do | text | %>
 
-	</colgroup>
-	<tr>
-		<td>
-			<h2>Results</h2>
-
-			<%unless @results.blank? then%>
-				<% @results.all.each do | text | %>
-	
-				<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
-				<% link = base_link << "#{text.page.page_id}"%>
-				<%= link_to(text.page.page_title, link) %>
-				<br/>
-				<% end %>
-			<% end %>
-		</td>
-		<td>
-		<iframe src= "http://www.wikipedia.org">
-		</iframe>
-		</td>
-	</tr>
-</table>
+	<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
+	<% link = base_link << "#{text.page.page_id}"%>
+	<%= link_to(text.page.page_title, link) %>
+	<br/>
+	<% end %>
+	<% end %>
+</div>
+<div id="wikiframe">
+	<iframe src= "http://www.wikipedia.org"></iframe>
+</div>
 
