@@ -4,7 +4,7 @@ class TextMiningController < ApplicationController
     
     unless @text.blank? then
       engine = SearchEngine.new(@text)
-      @results = engine.search_results.first
+      @results = engine.search_results
     end
 
   end
