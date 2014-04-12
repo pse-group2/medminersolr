@@ -7,10 +7,12 @@ class TextMiningController < ApplicationController
       list = engine.search_results
       
       @results = Array.new
+      unless list.blank? then
       list.all.each do |hit|
         key = hit.primary_key
         page = Page.where(:text_id => key).first
         @results.push page
+      end
       end
     end
 

@@ -23,14 +23,28 @@ h3{
   background: #900;
   color: #fff;
 }
-div{
-  width: 100%;
-}
-iframe{
+div#all{
+	margin-top: 20px;
   width: 100%;
   height: 100%;
+  }
+div#resultsframe{
+  width: 50%;
+  float: left;
+}
+div#wikiframe{
+	width: 50%;
+	float: left;
+	height: inherit;
+	
+	
+}
+iframe{
+ width: 100%;
+ height:inherit;
 
 }
+
 
 
 
