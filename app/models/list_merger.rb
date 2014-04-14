@@ -21,7 +21,6 @@ class ListMerger
     unless @lists.count == 1 then
       
       @lists.each do |list|
-        puts temp_intersection
         temp_intersection = temp_intersection.intersect list
       end
     end
