@@ -6,7 +6,7 @@ class Page < ActiveRecord::Base
   self.table_name = "page"
 
   searchable do
-    text :page_title, :boost => 5.0
+    text :page_title
     
 
   end

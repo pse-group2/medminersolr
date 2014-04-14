@@ -65,7 +65,6 @@ that avoids logging every request
                 <filter class="solr.StandardFilterFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
                 
             </analyzer>
             <analyzer type="index">
@@ -74,6 +73,7 @@ that avoids logging every request
                 <filter class="solr.LowerCaseFilterFactory"/>
                 <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
                 
             </analyzer>
         </fieldType>

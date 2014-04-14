@@ -10,6 +10,7 @@ class Text  < ActiveRecord::Base
     text :page  do 
           page.page_title
     end
+   
   end
 
 end

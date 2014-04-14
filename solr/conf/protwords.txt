@@ -13,6 +13,10 @@
 #-----------------------------------------------------------------------
 # Use a protected word file to protect against the stemmer reducing two
 # unrelated words to the same base word.
+epidemie
+Epidemie
+Cholera
+Ziegenpeter
 
 # Some non-words that normally won't be encountered,
 # just to test that they won't be stemmed.
