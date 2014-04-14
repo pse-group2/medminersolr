@@ -65,7 +65,8 @@ that avoids logging every request
                 <filter class="solr.StandardFilterFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.KeepWordFilterFactory" words="keepwords.txt" ignoreCase="true"/>
+                 <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
+                
             </analyzer>
             <analyzer type="index">
                 <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -73,7 +74,7 @@ that avoids logging every request
                 <filter class="solr.LowerCaseFilterFactory"/>
                 <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.KeepWordFilterFactory" words="keepwords.txt" ignoreCase="true"/>
+                
             </analyzer>
         </fieldType>
         <!-- *** This fieldType is used by Sunspot! *** -->
