@@ -10,8 +10,7 @@ class SearchEngine
   def search_results
     @result_lists.clear
 
-    #search_for_nouns
-    #tree_search
+   
     search_for_keywords
     #fulltext_search(@input)
     @result_lists.merge
@@ -36,37 +35,16 @@ class SearchEngine
         phrase_slop 1
       end
     end
-    #results = search.results.map {|result| result.page }
+    
     results = ResultsList.new(search.hits)
     @result_lists.push results
   end
 
-  # def title_search(text)
-    # search = Sunspot.search(Page) do |query|
-      # query.fulltext page_title
-    # end
-    # @result_lists.push search.results
-  # end
-
   def keyword_search(keywords_array)
 
-    # search = Sunspot.search(Text) do |query| 
-      # query.keywords keywords_array
-    # end
     keywords_array.each do |keyword|
       fulltext_search(keyword)
     end
 
-    #results = search.results.map {|result| result.page }
-    # results = ResultsList.new(search.hits)
-    # @result_lists.push results
   end
-
-  # def tree_search
-    # root_node = @processor.parse_tree
-    # root_node.children.each do |child|
-# 
-      # @result_lists.push fulltext_search(child.to_s)
-    # end
-  # end
 end
