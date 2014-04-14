@@ -39,12 +39,13 @@ class SearchEngine
     results = ResultsList.new(search.hits)
     @result_lists.push results
   end
-
+  
   def keyword_search(keywords_array)
 
     keywords_array.each do |keyword|
       fulltext_search(keyword)
     end
-
+    
   end
+
 end
