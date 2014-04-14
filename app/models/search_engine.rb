@@ -12,8 +12,8 @@ class SearchEngine
 
     #search_for_nouns
     #tree_search
-    search_for_keywords
-    #fulltext_search(@input)
+    #search_for_keywords
+    fulltext_search(@input)
     @result_lists.merge
   end
 
