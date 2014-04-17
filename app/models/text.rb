@@ -3,6 +3,8 @@ class Text  < ActiveRecord::Base
 
   has_one :page
   belongs_to :page
+  
+  validates :page, :presence => true
 
   searchable do
    
@@ -10,7 +12,6 @@ class Text  < ActiveRecord::Base
     text :page  do 
           page.page_title
     end
-   
   end
 
 end
