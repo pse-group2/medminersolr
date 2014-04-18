@@ -1,0 +1,8 @@
+one: 
+  text_id: 1
+  page_id: 123
+  content: Ein Satz mit acht Wörtern, darunter drei Nomen.
+two: 
+  text_id: 2
+  page_id: 124
+  content: Das Glas ist nicht halb leer, sondern halbvoll.

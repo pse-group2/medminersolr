@@ -4,7 +4,7 @@ require 'stanford-core-nlp'
 include Treat::Core::DSL
 Treat.core.language.default = 'german'
 
-# This helper class provides basic methods to process text chunks
+# This helper class provides basic methods to process text chunks.
 class TextProcessor
   
   def initialize(text)
