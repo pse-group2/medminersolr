@@ -1,3 +1,4 @@
+# This class models a list containing the results of a search request.
 class ResultsList
   
   def initialize (sunspot_hits)
@@ -25,34 +26,24 @@ class ResultsList
     score_range / count
   end
   
+  # Returns all the hits in this list
   def all
     @hits
   end
   
+  # Intersects to lists in such a way that the new list contains only
+  # the elements that are contained in both lists
   def intersect(result_list)
     p_keys_us = @hits.map {|hit| hit.primary_key}
     p_keys = result_list.all.map {|hit| hit.primary_key}
     
-    # printable = p_keys_us.map {|i| Page.where(:text_id => i).first.page_title}
-    # puts 'us: '.concat printable.to_s
-#     
-    # printable = p_keys.map {|i| Page.where(:text_id => i).first.page_title}
-    # puts 'them: '.concat printable.to_s
-    
     intersect = p_keys_us & p_keys 
-#     
-    # printable = intersect.map {|i| Page.where(:text_id => i).first.page_title}
-    # puts 'intersect: '.concat printable.to_s
-    # puts intersect
-    # puts 'BREAK'
     intersect_hits = Array.new
     
     intersect.each do |key|
       
       hit_index = @hits.index {|hit| hit.primary_key == key}
       hit_found = @hits[hit_index]
-      # found = Page.where(:text_id => hit_f.primary_key).first.page_title
-      # puts 'found #{found}'
       
       intersect_hits.push hit_found
     end

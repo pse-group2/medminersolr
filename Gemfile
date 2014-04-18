@@ -42,6 +42,7 @@ gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in developm
 
 # Testing
 gem 'rspec'
+gem 'rspec-rails'
 
 # Text processing
 gem 'treat'

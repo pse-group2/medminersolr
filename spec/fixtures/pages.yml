@@ -1,0 +1,8 @@
+one: 
+  page_id: 123
+  text_id: 1
+  page_title: Ein guter Titel
+two: 
+  page_id: 124
+  text_id: 2
+  page_title: Ein noch besserer Titel
