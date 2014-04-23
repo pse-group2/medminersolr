@@ -20,12 +20,17 @@ terms.each do |term|
   synonyms = term['synonyms']
   
   delim = ','
-  line = ''
+  line = %Q(") << text << %Q(") << delim
+  
   synonyms.each do |synonym|
-    line = line << synonym << delim
+    line = line << %Q(") << synonym << %Q(") << delim
   end
+  
   line = line.chomp(delim)
-  file.puts line
+  
+  unless synonyms.empty? then
+    file.puts line
+  end
 end
 
 file.close
