@@ -10,7 +10,7 @@ class SearchEngine
   def search_results
     @result_lists.clear
 
-    search_for_keywords
+    # search_for_keywords
     fulltext_search(@input)
     @result_lists.merge
   end
@@ -30,7 +30,9 @@ class SearchEngine
   def fulltext_search(text)
     search = Sunspot.search(Text) do |query|
       query.fulltext text do
-        fields(:content,:page => 0.1)
+        # fields(:content,:page => 1)
+         phrase_fields :content => 2000000.0
+         query_phrase_slop 10000
       end
     end
     
