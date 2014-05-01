@@ -37,7 +37,11 @@ class SearchEngine
       # end
       
       search = Text.search do
-        fulltext text
+        fulltext text do
+          fields(:content,:page => 1)
+          phrase_fields :content => 2000000.0
+          query_phrase_slop 10000
+        end
         paginate :page => 1, :per_page => 10000
       end
       

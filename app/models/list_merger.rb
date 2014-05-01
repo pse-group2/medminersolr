@@ -22,7 +22,10 @@ class ListMerger
       
       @lists.each do |list|
         common_articles = temp_intersection.intersect list
-        temp_intersection = reorder(temp_intersection, list, common_articles)
+        if common_articles.count > 0
+          temp_intersection = reorder(temp_intersection, list, common_articles)
+        else 
+        end
       end
     end
     
