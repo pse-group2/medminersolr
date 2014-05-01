@@ -59,24 +59,29 @@ that avoids logging every request
         <!-- *** This fieldType is used by Sunspot! *** -->
         <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
         <!-- *** This fieldType is used by Sunspot! *** -->
+      
+      
         <fieldType name="text" class="solr.TextField" omitNorms="false">
             <analyzer type="query">
-                <tokenizer class="solr.StandardTokenizerFactory"/>
+               <tokenizer class="solr.WhitespaceTokenizerFactory" />
                 <filter class="solr.StandardFilterFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+                 <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="false" tokenizerFactory="solr.KeywordTokenizerFactory" />
                 
             </analyzer>
             <analyzer type="index">
-                <tokenizer class="solr.StandardTokenizerFactory"/>
+               <tokenizer class="solr.WhitespaceTokenizerFactory" />
                 <filter class="solr.StandardFilterFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
-                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
+              
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
-                
+                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="15" side="front"/>
+                 <filter class="solr.CommonGramsFilterFactory" words="stopwords.txt" ignoreCase="true"/>
             </analyzer>
         </fieldType>
+        
+        
         <!-- *** This fieldType is used by Sunspot! *** -->
         <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>
         <!-- *** This fieldType is used by Sunspot! *** -->
