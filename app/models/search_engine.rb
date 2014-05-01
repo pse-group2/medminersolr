@@ -28,14 +28,25 @@ class SearchEngine
   end
 
   def fulltext_search(text)
-    search = Sunspot.search(Text) do |query|
-      query.fulltext text do
-        # fields(:content,:page => 1)
-         phrase_fields :content => 2000000.0
-         query_phrase_slop 10000
+    # search = Sunspot.search(Text) do |query|
+      # paginate :page => 1, :per_page => 200
+      # query.fulltext text do
+        # # fields(:content,:page => 1)
+         # phrase_fields :content => 2000000.0
+         # query_phrase_slop 10000
+      # end
+      
+      search = Text.search do
+        fulltext text do
+          fields(:content,:page => 1)
+          phrase_fields :content => 2000000.0
+          query_phrase_slop 10000
+        end
+        paginate :page => 1, :per_page => 10000
       end
-    end
+      
     
+
     results = ResultsList.new(search.hits)
     @result_lists.push results
   end
