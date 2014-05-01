@@ -9,15 +9,18 @@
 <div id="all"  >
 	<div id="resultsframe">
 		<h2>Results</h2>
+		
+		<p>Keywords: <%= @used_keywords.to_s %></p>
 
 		<%unless @results.blank? then%>
-		<% @results.each do | page | %>
+			<% @results.each do | page | %>
 
-		<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
-		<% link = base_link << "#{page.page_id}"%>
-		<%= link_to(page.page_title, link, {:target=> "page_display"})%> 
-		<br/>
-		<% end %>
+				<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
+				<% link = base_link << "#{page.page_id}"%>
+				<%= link_to(page.page_title, link, {:target=> "page_display"})%>
+				<br/>
+				
+			<% end %>
 		<% end %>
 	</div>
 	<div id="wikiframe">

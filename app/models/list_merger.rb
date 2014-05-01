@@ -14,12 +14,14 @@ class ListMerger
     @lists.clear
   end
   
+  #returns nil if there are no lists to merge
   def merge
 
-    temp_intersection = @lists.first
+    temp_intersection = ResultsList.new([],[])
     
-    unless @lists.count == 1 then
-      
+    if !@lists.empty?
+      temp_intersection = @lists.first
+    
       @lists.each do |list|
         common_articles = temp_intersection.intersect list
         if common_articles.count > 0
@@ -47,9 +49,8 @@ class ListMerger
       
       reordered[new_index] = hit
     end
-     puts "size: #{intersection.count}"
-     ResultsList.new(reordered)
-     intersection
+     
+     ResultsList.new(reordered, intersection.used_keywords)
   end
   
 end
