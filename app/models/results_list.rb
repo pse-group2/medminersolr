@@ -1,8 +1,13 @@
 # This class models a list containing the results of a search request.
 class ResultsList
   
-  def initialize (sunspot_hits)
+  #The keywords that have been used to create/merge this list
+  @used_keywords = Array.new
+  attr_reader :used_keywords
+  
+  def initialize (sunspot_hits, keywords)
     @hits = sunspot_hits.compact
+    @used_keywords = keywords
   end
   
   def count
@@ -47,6 +52,7 @@ class ResultsList
       intersect_hits.push hit_found
     end
     
-    ResultsList.new(intersect_hits)
+    keywords = used_keywords.concat result_list.used_keywords
+    ResultsList.new(intersect_hits, keywords.uniq)
   end
 end
