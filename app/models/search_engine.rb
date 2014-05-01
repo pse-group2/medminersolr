@@ -11,7 +11,7 @@ class SearchEngine
     @result_lists.clear
 
     search_for_keywords
-    fulltext_search(@input)
+    #fulltext_search(@input)
     @result_lists.merge
   end
 
