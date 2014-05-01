@@ -15,14 +15,13 @@
 
 		<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
 		<% link = base_link << "#{page.page_id}"%>
-		<%= link_to(page.page_title, link) %>
-		
+		<%= link_to(page.page_title, link, {:target=> "page_display"})%> 
 		<br/>
 		<% end %>
 		<% end %>
 	</div>
 	<div id="wikiframe">
-		<iframe src= "http://www.wikipedia.org"></iframe>
+		<iframe name="page_display" src="http://www.wikipedia.org"></iframe>
 	</div>
 </div>
 

@@ -10,7 +10,7 @@ class SearchEngine
   def search_results
     @result_lists.clear
 
-    # search_for_keywords
+    search_for_keywords
     fulltext_search(@input)
     @result_lists.merge
   end
