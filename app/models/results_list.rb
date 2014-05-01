@@ -3,11 +3,10 @@ class ResultsList
   
   def initialize (sunspot_hits)
     @hits = sunspot_hits.compact
-    puts @hits
   end
   
   def count
-    @hits.total
+    @hits.size
   end
   
   def highest_score
