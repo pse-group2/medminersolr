@@ -15,7 +15,6 @@ file = File.open('./solr/conf/synonyms.txt', 'w')
 
 terms.each do |term|
   text = term['text']
-  code = term['code']
   
   synonyms = term['synonyms']
   
