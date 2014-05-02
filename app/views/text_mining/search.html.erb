@@ -2,7 +2,7 @@
 	<h1>Medical Search</h1>
 
 	<%= form_tag("/text_mining/search", :method=>"post") do %>
-	<%= text_field_tag(:search_text) %>
+	<%= text_field_tag(:search_text, '' ,size: 70) %>
 	<%= submit_tag("Search", :class=>"btn") %>
 	<% end %>
 </center>
@@ -10,7 +10,7 @@
 	<div id="resultsframe">
 		<h2>Results</h2>
 		
-		<p>Keywords: <%= @used_keywords.to_s %></p>
+		<p>Used Keywords: <%= @used_keywords.to_s %></p>
 
 		<%unless @results.blank? then%>
 			<% @results.each do | page | %>

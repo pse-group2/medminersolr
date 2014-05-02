@@ -28,7 +28,8 @@ class SearchEngine
   end
 
   def search_for_keywords
-    keyword_search(@processor.keywords)
+    #keyword_search(@processor.keywords)
+    keyword_search(@processor.words)
   end
   
   def keyword_search(keywords_array)
@@ -40,11 +41,11 @@ class SearchEngine
   def fulltext_search(text)
       search = Text.search do
         fulltext text do
-          fields(:content,:page => 1)
-          phrase_fields :content => 2000000.0
-          query_phrase_slop 10000
+          fields(:content,:page => 2.0)
+        
         end
-        paginate :page => 1, :per_page => 10000
+
+        paginate :page => 1, :per_page => 2000
       end
       
 
