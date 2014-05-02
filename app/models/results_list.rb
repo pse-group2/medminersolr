@@ -51,8 +51,8 @@ class ResultsList
       
       intersect_hits.push hit_found
     end
-    
-    keywords = used_keywords.concat result_list.used_keywords
+    keywords = used_keywords.clone
+    keywords = keywords.concat result_list.used_keywords
     ResultsList.new(intersect_hits, keywords.uniq)
   end
 end
