@@ -20,7 +20,3 @@ pickle-email-*.html
 /solr/development/data/index/*
 /solr/development/data/tlog/*
 /solr/pids/development/*
-
-
-
-config/sunspot.yml
