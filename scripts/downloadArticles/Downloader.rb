@@ -11,9 +11,9 @@ class Downloader
   attr_accessor :c
   attr_accessor :name
   
-  #requires database details, an array of hashes containing page ID, text ID and name of wikipedia articles, a name for the downloader and an array with blacklisted IDs
-  def initialize(dbname, username, password, array, name, blacklist)
-    @client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
+  #requires a mysql client, an array of hashes containing page ID, text ID and name of wikipedia articles, a name for the downloader and an array with blacklisted IDs
+  def initialize(client, array, name, blacklist)
+    @client = client
     @input = array
     @c = 0
     @length = @input.length.to_i

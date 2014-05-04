@@ -30,7 +30,7 @@ class PeopleGetter
         c+=1
         print "\rExtracting relevant data... #{c} of #{pages.count} entries extracted."
       end
-    
+      counter+=1
     end
 
     print "\nWriting to file '#{@filename}'...\n"

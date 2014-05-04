@@ -4,7 +4,6 @@ require './PeopleGetter'
 require 'json'
 require 'open-uri'
 
-
 #number of downloaders that will be run
 threadNumber = 100;
 #database stuff, filenames, addresses
@@ -13,11 +12,11 @@ password = "toor"
 dbname = "medwikisolr"
 articles_filename = 'articles.json'
 people_filename = 'people_list.json'
-#all articles in the category "Medizin"
+#JSON - source of all articles in the category "Medizin"
 article_source = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin&ns=0&depth=-1&max=100000&start=0&format=json&redirects=&callback="
-#intersection of "Medizin" and "Mann"
+#JSON - intersection of "Medizin" and "Mann"
 menURL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin%0D%0AMann&ns=0&depth=12&max=30000&start=0&format=json&redirects=&callback="
-#intersection of "Medizin" and "Frau"
+#JSON - intersection of "Medizin" and "Frau"
 womenURL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin%0D%0AFrau&ns=0&depth=12&max=30000&start=0&format=json&redirects=&callback="
 
 #DB layout:
@@ -36,7 +35,7 @@ end
 #create json file with article data if none exists
 unless File.exists?(articles_filename)
   print "Getting list of articles...\n"
-  articleGetter = ArticleGetter.new(filename, article_source)
+  articleGetter = ArticleGetter.new(articles_filename, [article_source])
   articleGetter.download
 end
 
@@ -44,24 +43,25 @@ end
 articles = JSON.parse(open(articles_filename).read)
 #load IDs of articles about people into array
 blacklist = JSON.parse(open(people_filename).read)
-totalLength = articles.length - blacklist.length
+totalLength = articles.length
 
-#create downloaders, store in array
+#create downloaders, store in array - the array is split evenly among the downloaders, every downloader receives a subarray
 downloaders = []
 i = 0
 while i < threadNumber
-  downloaders << Downloader.new(dbname, username, password, articles[(totalLength/threadNumber)*i+i..(totalLength/threadNumber)*(i+1)+i], "Downloader#{i+1}", blacklist)
+  client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
+  downloaders << Downloader.new(client, articles[(totalLength/threadNumber)*i+i..(totalLength/threadNumber)*(i+1)+i], "Downloader#{i+1}", blacklist)
   i+=1
 end
 
 start = Time.now
 
-#create a thread for every downloader. start all downloaders simultaneously.
+#create a thread for every downloader. run downloaders parallely.
 threads = []
 downloaders.each do |d|
     threads << Thread.new{d.startDownload}
 end
-print "Running #{downloaders.count} downloaders on #{articles.length.to_i} entries...\n"
+print "Running #{downloaders.count} downloaders on #{totalLength.to_i} entries...\n"
 pct = 0
 #loop for displaying the downloader's progress 
 while pct < 100
@@ -70,12 +70,13 @@ while pct < 100
     sum += d.c
   end
   pct = (sum.to_f/totalLength.to_f*100).round(3)
-  print "\rDownloading: #{sum} of #{articles.length} articles\t#{pct}%"
+  print "\rDownloading: #{sum} of #{totalLength} articles\t#{pct}%"
   sleep 1
 end
 
+#time stats
 finish = Time.now
 t = finish-start
 mm, ss = t.divmod(60)          
 hh, mm = mm.divmod(60)          
-print "\nDone! Downloaded #{sum} of #{articles.length}. #{blacklist.length} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
+print "\nDone! Downloaded #{sum} of #{totalLength}. #{blacklist.length} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
