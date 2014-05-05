@@ -1,5 +1,8 @@
 class Remover
   
+  attr_accessor :pct
+  attr_accessor :c
+  
   def initialize(client, array)
     @client = client
     @input = array

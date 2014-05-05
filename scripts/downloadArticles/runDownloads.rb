@@ -75,6 +75,7 @@ while pct < 100
   print "\rDownloading: #{sum} of #{totalLength} articles\t#{pct}%"
   sleep 1
 end
+totalDownloaded = sum
 
 print "\nRemoving articles about people...\n"
 removers = []
@@ -98,7 +99,7 @@ while pct < 100
     sum += d.c
   end
   pct = (sum.to_f/blacklist.length.to_f*100).round(3)
-  print "\rDownloading: #{sum} of #{blacklist.length} articles\t#{pct}%"
+  print "\rDeleting: #{sum} of #{blacklist.length} articles\t#{pct}%"
   sleep 1
 end
 
@@ -107,4 +108,4 @@ finish = Time.now
 t = finish-start
 mm, ss = t.divmod(60)          
 hh, mm = mm.divmod(60)          
-print "\nDone! Downloaded #{sum} of #{totalLength}. #{blacklist.length} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
+print "\nDone! Downloaded #{totalDownloaded} of #{totalLength}. #{blacklist.length} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]

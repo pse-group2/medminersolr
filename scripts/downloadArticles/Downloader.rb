@@ -46,8 +46,8 @@ class Downloader
         tquery = "INSERT INTO text (page_id, content, text_id) VALUES(#{name["page_id"]}, '#{text.gsub("'", %q(\\\'))}', #{name["text_id"]})"
         @client.query(pquery)
         @client.query(tquery)
-        @c+=1
       end
+      @c+=1
     end
   end
   
