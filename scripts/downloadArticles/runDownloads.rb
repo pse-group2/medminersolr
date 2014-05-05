@@ -1,4 +1,5 @@
 require './Downloader'
+require './Remover'
 require './ArticleGetter'
 require './PeopleGetter'
 require 'json'
@@ -6,6 +7,7 @@ require 'open-uri'
 
 #number of downloaders that will be run
 threadNumber = 100;
+removerC = 20
 #database stuff, filenames, addresses
 username = "root"
 password = "toor"
@@ -50,7 +52,7 @@ downloaders = []
 i = 0
 while i < threadNumber
   client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
-  downloaders << Downloader.new(client, articles[(totalLength/threadNumber)*i+i..(totalLength/threadNumber)*(i+1)+i], "Downloader#{i+1}", blacklist)
+  downloaders << Downloader.new(client, articles[(totalLength/threadNumber)*i+i..(totalLength/threadNumber)*(i+1)+i], "Downloader#{i+1}")
   i+=1
 end
 
@@ -71,6 +73,32 @@ while pct < 100
   end
   pct = (sum.to_f/totalLength.to_f*100).round(3)
   print "\rDownloading: #{sum} of #{totalLength} articles\t#{pct}%"
+  sleep 1
+end
+
+print "\nRemoving articles about people...\n"
+removers = []
+i = 0
+while i < removerC
+  client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
+  removers << Remover.new(client, blacklist[(blacklist.length/removerC)*i+i..(blacklist.length/removerC)*(i+1)+i])
+  i+=1
+end
+
+threads = []
+removers.each do |r|
+    threads << Thread.new{r.start}
+end
+
+print "Running #{removers.count} removers on #{blacklist.length.to_i} entries...\n"
+pct = 0
+while pct < 100
+  sum = 0
+  removers.each do |d|
+    sum += d.c
+  end
+  pct = (sum.to_f/blacklist.length.to_f*100).round(3)
+  print "\rDownloading: #{sum} of #{blacklist.length} articles\t#{pct}%"
   sleep 1
 end
 
