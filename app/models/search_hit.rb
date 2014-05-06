@@ -17,6 +17,10 @@ class SearchHit
     self == other
   end
   
+  def hash
+    primary_key.hash
+  end
+  
   def page
     Page.where(:text_id => primary_key).first
   end
