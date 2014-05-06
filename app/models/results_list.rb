@@ -35,6 +35,11 @@ class ResultsList
     @hits
   end
   
+  # Sorts the list descending by scores
+  def sort
+    @hits = @hits.sort {|x,y| y.score <=> x.score }
+  end
+  
   # Intersects to lists in such a way that the new list contains only
   # the elements that are contained in both lists
   def intersect(result_list)

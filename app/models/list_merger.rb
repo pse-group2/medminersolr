@@ -24,7 +24,7 @@ class ListMerger
         common_articles = temp_intersection.intersect list
         puts common_articles.count
         if common_articles.count > 0
-          temp_intersection = reorder(temp_intersection, list, common_articles)
+          temp_intersection = reorder_by_average_scores(temp_intersection, list, common_articles)
         end
       end
     end
@@ -34,9 +34,9 @@ class ListMerger
 
   private
 
-  def reorder(list1, list2, intersection)
+  def reorder_by_average_index(list1, list2, intersection)
 
-    reordered = Array.new(intersection.count  )
+    reordered = Array.new(intersection.count)
 
     intersection.all.each do |hit|
       index1 = list1.all.index {|h| h.primary_key == hit.primary_key}
@@ -44,15 +44,27 @@ class ListMerger
 
       new_index = (index1 + index2) / 2
       new_index = new_index.round
-      
-      puts "old 1: #{index1} old 2: #{index2} new: #{new_index}"
-      
+     
       reordered.insert(new_index, hit)
-      # reordered[new_index] = hit
     end
-    puts '_________'
-    puts reordered
     ResultsList.new(reordered, intersection.used_keywords)
+  end
+  
+  def reorder_by_average_scores(list1, list2, merged_list)
+
+    merged_list.all.each do |hit|
+      index1 = list1.all.index {|h| h.primary_key == hit.primary_key}
+      index2 = list2.all.index {|h| h.primary_key == hit.primary_key}
+
+      score1 = list1.all[index1].score
+      score2 = list2.all[index2].score
+     
+      new_score = (score1 + score2) / 2
+      hit.score = new_score
+    end
+    
+    merged_list.sort
+    merged_list
   end
 
 end

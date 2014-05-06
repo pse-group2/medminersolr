@@ -12,7 +12,6 @@ class SearchEngine
     @result_lists.clear
 
     search_for_keywords
-    #fulltext_search(@input)
     
     single_list = @result_lists.merge
     @used_keywords = single_list.used_keywords
@@ -21,14 +20,7 @@ class SearchEngine
 
   private
 
-  def search_for_nouns
-    @processor.nouns.each do |noun|
-      fulltext_search(noun)
-    end
-  end
-
   def search_for_keywords
-    #keyword_search(@processor.keywords)
     keyword_search(@processor.words)
   end
   
@@ -42,14 +34,13 @@ class SearchEngine
       search = Text.search do
         fulltext text do
           fields(:content,:page => 2.0)
-        
         end
-
         paginate :page => 1, :per_page => 2000
       end
       
-
-    results = ResultsList.new(search.hits, [text])
+    search_hits = search.hits.map {|hit| SearchHit.new(hit)}
+    
+    results = ResultsList.new(search_hits, [text])
     @result_lists.push results
   end
 
