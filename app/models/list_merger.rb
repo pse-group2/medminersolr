@@ -18,7 +18,7 @@ class ListMerger
   #returns nil if there are no lists to merge
   def merge
 
-    temp_intersection = ResultsList.new([],[])
+    temp_merge = ResultsList.new([],[])
 
     if !@lists.empty?
       temp_merge= @lists.first
