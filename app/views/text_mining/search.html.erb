@@ -12,16 +12,30 @@
 		
 		<p>Used Keywords: <%= @used_keywords.to_s %></p>
 
-		<%unless @results.blank? then%>
-			<% @results.each do | page | %>
-
-				<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
-				<% link = base_link << "#{page.page_id}"%>
-				<%= link_to(page.page_title, link, {:target=> "page_display"})%>
-				<br/>
-				
-			<% end %>
-		<% end %>
+		<table>
+			<thead>
+				<tr>
+					<th class="page">Page</th>
+					<th class="score">Score</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%unless @results.blank? then %>
+					<% @results.all.each do | hit | %>
+					<tr>
+						<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
+						<% link = base_link << "#{hit.page.page_id}" %>
+						<td>
+						<%= link_to(hit.page.page_title, link, {:target=> "page_display"}) %>
+						</td>
+						<td>
+						<%= hit.score %>
+						</td>
+					</tr>
+					<% end %>
+				<% end %>
+			</tbody>
+		</table>
 	</div>
 	<div id="wikiframe">
 		<iframe name="page_display" src="http://www.wikipedia.org"></iframe>
