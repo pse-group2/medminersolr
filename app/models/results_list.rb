@@ -40,6 +40,13 @@ class ResultsList
     @hits = @hits.sort {|x,y| y.score <=> x.score }
   end
   
+  # Multiplies all scores by the given factor.
+  def boost_all(factor)
+    @hits.each do |hit|
+      hit.score *= factor
+    end
+  end
+  
   # Intersects to lists in such a way that the new list contains only
   # the elements that are contained in both lists
   def intersect(result_list)
@@ -59,5 +66,13 @@ class ResultsList
     keywords = used_keywords.clone
     keywords = keywords.concat result_list.used_keywords
     ResultsList.new(intersect_hits, keywords.uniq)
+  end
+  
+  # Creates a union of two result lists.
+  def unite (result_list)
+    
+    hits = @hits | result_list.all
+    keywords = used_keywords | result_list.used_keywords
+    ResultsList.new(hits, keywords.uniq)
   end
 end

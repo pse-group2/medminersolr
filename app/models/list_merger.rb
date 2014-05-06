@@ -1,5 +1,8 @@
 # This is a helper class for merging multiple lists of search results.
 class ListMerger
+  
+  INTERSECT_BOOST = 3
+  
   def initialize
     @lists = Array.new
   end
@@ -18,18 +21,22 @@ class ListMerger
     temp_intersection = ResultsList.new([],[])
 
     if !@lists.empty?
-      temp_intersection = @lists.first
+      temp_merge= @lists.first
 
       @lists.each do |list|
-        common_articles = temp_intersection.intersect list
-        puts common_articles.count
+        common_articles = temp_merge.intersect list
+        
         if common_articles.count > 0
-          temp_intersection = reorder_by_average_scores(temp_intersection, list, common_articles)
+          temp_merge = reorder_by_average_scores(temp_merge, list, common_articles)
+          temp_merge.boost_all(INTERSECT_BOOST)
         end
+        
+        temp_merge = temp_merge.unite list
+        temp_merge.sort
       end
     end
 
-    temp_intersection
+    temp_merge
   end
 
   private
