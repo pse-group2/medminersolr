@@ -6,6 +6,7 @@ class SearchEngine
     @processor = TextProcessor.new(text)
     @result_lists = ListMerger.new
     @used_keywords = Array.new
+    @dimensionwords = Array.new
   end
 
   def search_results
@@ -22,9 +23,10 @@ class SearchEngine
 
   def search_for_keywords
      f = File.open('./solr/conf/dimesionwords.txt')
-    dimensionwords = Array.new
-    dimensionwords = f.read.split("\n")
-    reduced_words = @processor.words.map(&:downcase) - dimensionwords.flatten.map(&:downcase)
+    all_dimensionwords = Array.new
+    all_dimensionwords = f.read.split("\n")
+    reduced_words = @processor.words.map(&:downcase) - all_dimensionwords.flatten.map(&:downcase)
+    @dimensionwords = @processor.words.map(&:downcase) - reduced_words
     keyword_search(reduced_words)
   end
   
