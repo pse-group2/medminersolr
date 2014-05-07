@@ -28,7 +28,7 @@ class SynonymParser
         
         synonyms.each do |syn|
           line = ''
-          line = line << syn << ARROW << synonyms_to_string(synonyms)
+          line = line << syn.downcase << ARROW << synonyms_to_string(synonyms)
           file.puts line
         end
       end
