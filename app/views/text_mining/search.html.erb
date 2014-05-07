@@ -6,12 +6,11 @@
 	<%= submit_tag("Search", :class=>"btn") %>
 	<% end %>
 </center>
-<div id="all"  >
+<div id="all">
+	<h2>Results</h2>	
+	<p>Used Keywords: <%= @used_keywords.to_s %></p>
+	
 	<div id="resultsframe">
-		<h2>Results</h2>
-		
-		<p>Used Keywords: <%= @used_keywords.to_s %></p>
-
 		<table>
 			<thead>
 				<tr>
@@ -29,7 +28,7 @@
 						<%= link_to(hit.page.page_title, link, {:target=> "page_display"}) %>
 						</td>
 						<td>
-						<%= hit.score %>
+						<%= hit.score.round(3) %>
 						</td>
 					</tr>
 					<% end %>

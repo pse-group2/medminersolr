@@ -1,8 +1,6 @@
 body {
   font-family: Helvetica, Geneva, Arial, sans-serif;
   font-size: small;
-  color: #000;
-  background-color: #fff;  
 }
 h1{
   font-size: 40px;
@@ -14,6 +12,7 @@ table{
 }
 th{
   text-align: left;
+  background-color: white;
 }
 th.page{
   width: 75%;
@@ -21,16 +20,14 @@ th.page{
 th.score{
   width: 25%;
 }
-h3{
-  margin-top: 0;
-  background: #900;
-  color: #fff;
+tr:nth-child(odd) {
+    background-color: #E6E6E6;
 }
 div#all{
 	margin-top: 20px;
   width: 100%;
   height: 100%;
-  }
+}
 div#resultsframe{
   width: 50%;
   float: left;
