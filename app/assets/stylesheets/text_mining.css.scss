@@ -1,49 +1,49 @@
-body {
-   font-family: Helvetica, Geneva, Arial, sans-serif;
-   font-size: small;
-   color: #000;
-   background-color: #fff;  
+html{
+  height: 100%;
 }
-
+body {
+  font-family: Helvetica, Geneva, Arial, sans-serif;
+  font-size: small;
+  height: 100%;
+}
 h1{
   font-size: 40px;
 }
-table{
+table#results-table{
   width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 th{
   text-align: left;
+  background-color: white;
 }
 th.page{
   width: 75%;
 }
 th.score{
-  width: 25%
+  width: 25%;
 }
-h3{
-  margin-top: 0;
-  background: #900;
-  color: #fff;
+tr:nth-child(odd) {
+    background-color: #E6E6E6;
 }
 div#all{
-	margin-top: 20px;
+  position: relative;
   width: 100%;
   height: 100%;
-  }
-div#resultsframe{
-  width: 50%;
-  float: left;
 }
-div#wikiframe{
+div#results-frame{
+  width: 50%;
+  height: 100%;
+  float: left;
+  overflow-y: auto;
+}
+div#wiki-frame{
 	width: 50%;
 	float: left;
 	height: inherit;
 }
 iframe{
- width: 100%;
- height:inherit;
+  width: 100%;
+  height: inherit;
 }
-
-
-
-

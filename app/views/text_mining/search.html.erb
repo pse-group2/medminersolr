@@ -2,17 +2,16 @@
 	<h1>Medical Search</h1>
 
 	<%= form_tag("/text_mining/search", :method=>"post") do %>
-	<%= text_field_tag(:search_text, '' ,size: 70, :autocomplete => :off) %>
+	<%= text_field_tag(:search_text, '' ,size: 70, :autocomplete => :off, :placeholder => @text) %>
 	<%= submit_tag("Search", :class=>"btn") %>
 	<% end %>
 </center>
-<div id="all"  >
-	<div id="resultsframe">
-		<h2>Results</h2>
-		
-		<p>Used Keywords: <%= @used_keywords.to_s %></p>
-
-		<table>
+<div id="all">
+	<h2>Results</h2>	
+	<p>Used Keywords: <%= @used_keywords.to_s %></p>
+	
+	<div id="results-frame">
+		<table id="results-table">
 			<thead>
 				<tr>
 					<th class="page">Page</th>
@@ -29,7 +28,7 @@
 						<%= link_to(hit.page.page_title, link, {:target=> "page_display"}) %>
 						</td>
 						<td>
-						<%= hit.score %>
+						<%= hit.score.round(3) %>
 						</td>
 					</tr>
 					<% end %>
@@ -37,7 +36,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="wikiframe">
+	<div id="wiki-frame">
 		<iframe name="page_display" src="http://www.wikipedia.org"></iframe>
 	</div>
 </div>
