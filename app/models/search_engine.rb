@@ -25,7 +25,7 @@ class SearchEngine
      f = File.open('./solr/conf/dimesionwords.txt')
     all_dimensionwords = Array.new
     all_dimensionwords = f.read.split("\n")
-    reduced_words = @processor.words.map(&:downcase) - all_dimensionwords.flatten.map(&:downcase)
+    reduced_words = @processor.words.map(&:downcase) - all_dimensionwords.compact.map(&:downcase)
     @dimensionwords = @processor.words.map(&:downcase) - reduced_words
     keyword_search(reduced_words)
   end
