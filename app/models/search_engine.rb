@@ -33,9 +33,9 @@ class SearchEngine
   def fulltext_search(text)
       search = Text.search do
         fulltext text do
-          fields(:content,:page => 2.0)
+          fields(:content,:page => 0.1)
         end
-        paginate :page => 1, :per_page => 2000
+        paginate :page => 1, :per_page => 1000
       end
       
     search_hits = search.hits.map {|hit| SearchHit.new(hit)}
