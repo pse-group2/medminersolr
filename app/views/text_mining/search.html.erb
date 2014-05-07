@@ -10,8 +10,8 @@
 	<h2>Results</h2>	
 	<p>Used Keywords: <%= @used_keywords.to_s %></p>
 	
-	<div id="resultsframe">
-		<table>
+	<div id="results-frame">
+		<table id="results-table">
 			<thead>
 				<tr>
 					<th class="page">Page</th>
@@ -36,7 +36,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div id="wikiframe">
+	<div id="wiki-frame">
 		<iframe name="page_display" src="http://www.wikipedia.org"></iframe>
 	</div>
 </div>

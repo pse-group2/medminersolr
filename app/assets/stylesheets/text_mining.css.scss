@@ -1,11 +1,15 @@
+html{
+  height: 100%;
+}
 body {
   font-family: Helvetica, Geneva, Arial, sans-serif;
   font-size: small;
+  height: 100%;
 }
 h1{
   font-size: 40px;
 }
-table{
+table#results-table{
   width: 100%;
   table-layout: fixed;
   word-wrap: break-word;
@@ -24,20 +28,22 @@ tr:nth-child(odd) {
     background-color: #E6E6E6;
 }
 div#all{
-	margin-top: 20px;
+  position: relative;
   width: 100%;
   height: 100%;
 }
-div#resultsframe{
+div#results-frame{
   width: 50%;
+  height: 100%;
   float: left;
+  overflow-y: auto;
 }
-div#wikiframe{
+div#wiki-frame{
 	width: 50%;
 	float: left;
 	height: inherit;
 }
 iframe{
   width: 100%;
-  height:inherit;
+  height: inherit;
 }
