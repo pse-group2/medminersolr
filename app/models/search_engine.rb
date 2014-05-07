@@ -22,7 +22,7 @@ class SearchEngine
   private
 
   def search_for_keywords
-     f = File.open('./solr/conf/dimesionwords.txt')
+     f = File.open('./solr/conf/dimensionwords.txt')
     all_dimensionwords = Array.new
     all_dimensionwords = f.read.split("\n")
     reduced_words = @processor.words.map(&:downcase) - all_dimensionwords.compact.map(&:downcase)
