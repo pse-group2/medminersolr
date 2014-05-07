@@ -17,4 +17,10 @@ rerun.txt
 pickle-email-*.html
 .project
 /.metadata/*
+/solr/development/data/index/*
+/solr/development/data/tlog/*
+/solr/pids/development/*
 
+
+
+config/sunspot.yml

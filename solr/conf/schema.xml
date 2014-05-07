@@ -76,7 +76,7 @@ that avoids logging every request
                 <filter class="solr.LowerCaseFilterFactory"/>
               
                  <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="30" side="front"/>
+                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="30" side="front"/>
                  <filter class="solr.CommonGramsFilterFactory" words="stopwords.txt" ignoreCase="true"/>
             </analyzer>
         </fieldType>

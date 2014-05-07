@@ -11,15 +11,14 @@ class Downloader
   attr_accessor :c
   attr_accessor :name
   
-  #requires a mysql client, an array of hashes containing page ID, text ID and name of wikipedia articles, a name for the downloader and an array with blacklisted IDs
-  def initialize(client, array, name, blacklist)
+  #requires a mysql client, an array of hashes containing page ID, text ID and name of wikipedia articles, a name for the downloader
+  def initialize(client, array, name)
     @client = client
     @input = array
     @c = 0
     @length = @input.length.to_i
     @pct = 0
     @name = name
-    @blacklist = blacklist
   end
 
   def openURL(url)
@@ -35,25 +34,20 @@ class Downloader
       #check if article already exists
       check = @client.query("SELECT * FROM page WHERE page_id = #{name["page_id"]}").count
       unless check == 1
-        #if the ID is blacklisted (article is about a person), ignore
-        if @blacklist.include?(articleID)
-          puts "Skipping blacklisted article with ID #{articleID}"
-        else
-          #get raw text contents of article
-          url = "http://de.wikipedia.org/w/index.php?curid=#{name["page_id"]}"
-          doc = Nokogiri::HTML(openURL(url))
-          text = ''
-          doc.css('p,h1').each do |e|
-            text << e.content
-          end
-          #insert into database
-          pquery = "INSERT INTO page (page_id, page_title, text_id) VALUES(#{name["page_id"]}, '#{name["page_title"].gsub("'", %q(\\\'))}', #{name["text_id"]})"
-          tquery = "INSERT INTO text (page_id, content, text_id) VALUES(#{name["page_id"]}, '#{text.gsub("'", %q(\\\'))}', #{name["text_id"]})"
-          @client.query(pquery)
-          @client.query(tquery)
-          @c+=1
+        #get raw text contents of article
+        url = "http://de.wikipedia.org/w/index.php?curid=#{name["page_id"]}"
+        doc = Nokogiri::HTML(openURL(url))
+        text = ''
+        doc.css('p,h1').each do |e|
+          text << e.content
         end
+        #insert into database
+        pquery = "INSERT INTO page (page_id, page_title, text_id) VALUES(#{name["page_id"]}, '#{name["page_title"].gsub("'", %q(\\\'))}', #{name["text_id"]})"
+        tquery = "INSERT INTO text (page_id, content, text_id) VALUES(#{name["page_id"]}, '#{text.gsub("'", %q(\\\'))}', #{name["text_id"]})"
+        @client.query(pquery)
+        @client.query(tquery)
       end
+      @c+=1
     end
   end
   
