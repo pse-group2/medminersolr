@@ -1,15 +1,16 @@
 body {
-   font-family: Helvetica, Geneva, Arial, sans-serif;
-   font-size: small;
-   color: #000;
-   background-color: #fff;  
+  font-family: Helvetica, Geneva, Arial, sans-serif;
+  font-size: small;
+  color: #000;
+  background-color: #fff;  
 }
-
 h1{
   font-size: 40px;
 }
 table{
   width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 th{
   text-align: left;
@@ -18,7 +19,7 @@ th.page{
   width: 75%;
 }
 th.score{
-  width: 25%
+  width: 25%;
 }
 h3{
   margin-top: 0;
@@ -40,10 +41,6 @@ div#wikiframe{
 	height: inherit;
 }
 iframe{
- width: 100%;
- height:inherit;
+  width: 100%;
+  height:inherit;
 }
-
-
-
-
