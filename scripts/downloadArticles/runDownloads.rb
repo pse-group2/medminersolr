@@ -4,6 +4,7 @@ require './ArticleGetter'
 require './PeopleGetter'
 require 'json'
 require 'open-uri'
+require 'ruby-progressbar'
 
 #number of downloaders that will be run
 threadNumber = 100;
@@ -45,6 +46,7 @@ end
 articles = JSON.parse(open(articles_filename).read)
 #load IDs of articles about people into array
 blacklist = JSON.parse(open(people_filename).read)
+peopleCount = blacklist.count
 totalLength = articles.length
 
 #create downloaders, store in array - the array is split evenly among the downloaders, every downloader receives a subarray
@@ -66,23 +68,25 @@ end
 print "Running #{downloaders.count} downloaders on #{totalLength.to_i} entries...\n"
 pct = 0
 #loop for displaying the downloader's progress 
-while pct < 100
+pBar = ProgressBar.create(:title => " Downloading articles: ", :total => totalLength, :format => '%t %p%% |%B| %a')
+sum = 0
+while sum < totalLength
   sum = 0
   downloaders.each do |d|
     sum += d.c
   end
-  pct = (sum.to_f/totalLength.to_f*100).round(3)
-  print "\rDownloading: #{sum} of #{totalLength} articles\t#{pct}%"
+  pBar.progress=sum
   sleep 1
 end
 totalDownloaded = sum
+pBar.finish
 
 print "\nRemoving articles about people...\n"
 removers = []
 i = 0
 while i < removerC
   client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
-  removers << Remover.new(client, blacklist[(blacklist.length/removerC)*i+i..(blacklist.length/removerC)*(i+1)+i])
+  removers << Remover.new(client, blacklist[(peopleCount/removerC)*i+i..(peopleCount/removerC)*(i+1)+i])
   i+=1
 end
 
@@ -91,15 +95,15 @@ removers.each do |r|
     threads << Thread.new{r.start}
 end
 
-print "Running #{removers.count} removers on #{blacklist.length.to_i} entries...\n"
-pct = 0
-while pct < 100
+print "Running #{removers.count} removers on #{peopleCount.to_i} entries...\n"
+pBar = ProgressBar.create(:title => " Removing people: ", :total => peopleCount, :format => '%t %p%% |%B| %a')
+sum = 0
+while sum < peopleCount
   sum = 0
   removers.each do |d|
     sum += d.c
   end
-  pct = (sum.to_f/blacklist.length.to_f*100).round(3)
-  print "\rDeleting: #{sum} of #{blacklist.length} articles\t#{pct}%"
+  pBar.progress=sum
   sleep 1
 end
 
@@ -108,4 +112,4 @@ finish = Time.now
 t = finish-start
 mm, ss = t.divmod(60)          
 hh, mm = mm.divmod(60)          
-print "\nDone! Downloaded #{totalDownloaded} of #{totalLength}. #{blacklist.length} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
+print "\nDone! Downloaded #{totalDownloaded} of #{totalLength}. #{peopleCount} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
