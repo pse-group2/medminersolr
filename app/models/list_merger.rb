@@ -25,8 +25,8 @@ class ListMerger
       temp_merge= @lists.first
 
       @lists.each do |list|
-        # list.normalize
-        # temp_merge.normalize
+        list.normalize
+        temp_merge.normalize
         common_articles = temp_merge.intersect list
         
         if common_articles.count > 0
@@ -38,7 +38,7 @@ class ListMerger
         temp_merge.sort
       end
     end
-
+    
     temp_merge
   end
 
@@ -72,14 +72,13 @@ class ListMerger
       
       max = [score1, score2].max
       min = [score1, score2].min
-       if (min / max) < REORDER_TRESHOLD
+      
+      if (min / max) < REORDER_TRESHOLD
         new_score = Math.sqrt(score1 * score2)
-        # new_score = (score1 + score2) / 2
-      # new_score = score1 + score2
         hit.score = new_score
-       else
+      else
         hit.score = max / INTERSECT_BOOST
-       end
+      end
       
     end
     
