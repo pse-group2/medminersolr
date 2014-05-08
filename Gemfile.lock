@@ -111,6 +111,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-progressbar (1.4.2)
     rubyzip (0.9.9)
     sass (3.2.14)
     sass-rails (4.0.1)
@@ -184,6 +185,7 @@ DEPENDENCIES
   rails (= 4.0.3)
   rspec
   rspec-rails
+  ruby-progressbar
   sass-rails (~> 4.0.0)
   scalpel
   sdoc
