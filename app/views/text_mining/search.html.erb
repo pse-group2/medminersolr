@@ -25,7 +25,8 @@
 						<% base_link = 'http://de.wikipedia.org/wiki?curid=' %>
 						<% link = base_link << "#{hit.page.page_id}" %>
 						<td>
-						<%= link_to(hit.page.page_title, link, {:target=> "page_display"}) %>
+						<% c = hit.contains_dimensionword ? "dimension_highlight" : nil %>
+						<%= link_to(hit.page.page_title, link, {:class => c, :target=> "page_display"}) %>
 						</td>
 						<td>
 						<%= hit.score.round(3) %>

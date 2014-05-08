@@ -16,6 +16,8 @@ class SearchEngine
     
     single_list = @result_lists.merge
     @used_keywords = single_list.used_keywords
+    mark_hits_containing_dimensionwords(single_list)
+    
     single_list
   end
 
@@ -48,6 +50,18 @@ class SearchEngine
     
     results = ResultsList.new(search_hits, [text])
     @result_lists.push results
+  end
+  
+  def mark_hits_containing_dimensionwords(results_list)
+    results_list.all.each do |hit|
+      key = hit.primary_key
+      @dimensionwords.each do |word|
+        rows = Text.where(:text_id => key).where("content LIKE ?", "%#{word}%")
+        unless rows.size < 1 then
+          hit.contains_dimensionword = true
+        end
+      end
+    end
   end
 
 end
