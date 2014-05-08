@@ -72,14 +72,14 @@ class ListMerger
       
       max = [score1, score2].max
       min = [score1, score2].min
-      # if (min / max) < REORDER_TRESHOLD
+       if (min / max) < REORDER_TRESHOLD
         new_score = Math.sqrt(score1 * score2)
         # new_score = (score1 + score2) / 2
       # new_score = score1 + score2
         hit.score = new_score
-      # else
-        # hit.score = max
-      # end
+       else
+        hit.score = max / INTERSECT_BOOST
+       end
       
     end
     
