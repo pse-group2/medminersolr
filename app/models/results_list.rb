@@ -15,10 +15,12 @@ class ResultsList
   end
   
   def highest_score
+    sort
     @hits.first.score
   end
   
   def lowest_score
+    sort
     @hits.last.score
   end
   
