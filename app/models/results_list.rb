@@ -65,4 +65,15 @@ class ResultsList
     keywords = used_keywords | results_list.used_keywords
     ResultsList.new(union_hits, keywords.uniq)
   end
+  
+  def normalize
+    unless @hits.empty? then 
+      max = highest_score
+      min = lowest_score
+      all.each do |hit| 
+        hit.score = (hit.score - min)/(max - min)
+      end
+      sort
+    end
+  end
 end
