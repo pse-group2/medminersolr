@@ -2,6 +2,7 @@
 class ListMerger
   
   INTERSECT_BOOST = 3
+  REORDER_TRESHOLD = 0.1
   
   def initialize
     @lists = Array.new
@@ -24,6 +25,8 @@ class ListMerger
       temp_merge= @lists.first
 
       @lists.each do |list|
+        # list.normalize
+        # temp_merge.normalize
         common_articles = temp_merge.intersect list
         
         if common_articles.count > 0
@@ -66,8 +69,18 @@ class ListMerger
       score1 = list1.all[index1].score
       score2 = list2.all[index2].score
      
-      new_score = (score1 + score2) / 2
-      hit.score = new_score
+      
+      max = [score1, score2].max
+      min = [score1, score2].min
+      # if (min / max) < REORDER_TRESHOLD
+        new_score = Math.sqrt(score1 * score2)
+        # new_score = (score1 + score2) / 2
+      # new_score = score1 + score2
+        hit.score = new_score
+      # else
+        # hit.score = max
+      # end
+      
     end
     
     merged_list.sort

@@ -34,6 +34,8 @@ gem 'mysql2'
 
 gem 'progress_bar'
 
+gem 'ruby-progressbar'
+
 gem 'protected_attributes'
 
 gem 'sunspot_rails'
