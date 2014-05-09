@@ -17,19 +17,24 @@ class SearchEngine
     single_list = @result_lists.merge
     @used_keywords = single_list.used_keywords
     mark_hits_containing_dimensionwords(single_list)
-    
     single_list
   end
 
   private
 
   def search_for_keywords
-     f = File.open('./solr/conf/dimensionwords.txt')
+    reduced_words = reduce_keywords
+    keyword_search(reduced_words)
+  end
+  
+  def reduce_keywords
+    f = File.open('./solr/conf/dimensionwords.txt')
     all_dimensionwords = Array.new
     all_dimensionwords = f.read.split("\n")
     reduced_words = @processor.words.map(&:downcase) - all_dimensionwords.compact.map(&:downcase)
     @dimensionwords = @processor.words.map(&:downcase) - reduced_words
-    keyword_search(reduced_words)
+    reduced_words
+    
   end
   
   def keyword_search(keywords_array)
