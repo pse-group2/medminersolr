@@ -63,21 +63,21 @@ that avoids logging every request
       
         <fieldType name="text" class="solr.TextField" omitNorms="false">
             <analyzer type="query">
-               <tokenizer class="solr.WhitespaceTokenizerFactory" />
-                <filter class="solr.StandardFilterFactory"/>
-                <filter class="solr.LowerCaseFilterFactory"/>
-                 <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="false" tokenizerFactory="solr.KeywordTokenizerFactory" />
+            	<tokenizer class="solr.WhitespaceTokenizerFactory" />
+            	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" preserveOriginal="1" />
+	           	<filter class="solr.LowerCaseFilterFactory"/>             
+              	<filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
                 
             </analyzer>
             <analyzer type="index">
-               <tokenizer class="solr.WhitespaceTokenizerFactory" />
-                <filter class="solr.StandardFilterFactory"/>
-                <filter class="solr.LowerCaseFilterFactory"/>
-              
-                 <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
-                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="30" side="front"/>
-                 <filter class="solr.CommonGramsFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+               	<tokenizer class="solr.WhitespaceTokenizerFactory" />
+               	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" preserveOriginal="1"/>
+               	<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.KeywordTokenizerFactory" />
+               	<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.LetterTokenizerFactory" />
+                <filter class="solr.LowerCaseFilterFactory"/>  
+				<filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+                <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="30" side="front"/>
+                <filter class="solr.CommonGramsFilterFactory" words="stopwords.txt" ignoreCase="true"/>
             </analyzer>
         </fieldType>
         
