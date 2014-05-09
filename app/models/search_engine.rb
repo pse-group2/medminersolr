@@ -41,7 +41,7 @@ class SearchEngine
   def fulltext_search(text)
       search = Text.search do
         fulltext text do
-          fields(:content,:page => 0.3)
+          fields(:content,:page => 0.5)
         end
         paginate :page => 1, :per_page => 1000
       end
