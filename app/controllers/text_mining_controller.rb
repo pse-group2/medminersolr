@@ -6,7 +6,6 @@ class TextMiningController < ApplicationController
     unless @text.blank? then
       engine = SearchEngine.new(@text)
       @results = engine.search_results
-      @results.normalize
       @used_keywords = printable_used_keywords(engine.used_keywords)
     end
     

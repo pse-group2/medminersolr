@@ -61,9 +61,14 @@ class ResultsList
   
   # Creates a union of two result lists.
   def unite (results_list)
+    puts "inside unite: #{results_list.count}"
+    puts count
     union_hits = @hits | results_list.all
+    
     keywords = used_keywords | results_list.used_keywords
-    ResultsList.new(union_hits, keywords.uniq)
+    list = ResultsList.new(union_hits, keywords.uniq)
+    puts "end of unite: #{list.count}"
+    list
   end
   
   def normalize
