@@ -1,35 +1,33 @@
 # This class models a list containing the results of a search request.
+# It contains search hits, which have scores. This list can be intersected
+# and united with other ResultsLists. 
 class ResultsList
   
   # The keywords that have been used to create/merge this list
-  @used_keywords = Array.new
   attr_reader :used_keywords
   
-  def initialize (sunspot_hits, keywords)
-    @hits = sunspot_hits.compact
+  # The search_hits is an array containing instances of SearchHit.
+  def initialize (search_hits, keywords=Array.new)
+    @hits = search_hits.compact
     @used_keywords = keywords
   end
   
   def count
-    @hits.size
+    all.size
   end
   
   def highest_score
     sort
-    @hits.first.score
+    all.first.score
   end
   
   def lowest_score
     sort
-    @hits.last.score
+    all.last.score
   end
   
   def score_range
     highest_score - lowest_score
-  end
-  
-  def average_score
-    score_range / count
   end
   
   # Returns all the hits in this list
@@ -39,38 +37,37 @@ class ResultsList
   
   # Sorts the list descending by scores
   def sort
-    @hits = @hits.sort {|x,y| y.score <=> x.score }
+    @hits = all.sort {|x,y| y.score <=> x.score }
   end
   
   # Multiplies all scores by the given factor.
   def boost_all(factor)
-    @hits.each do |hit|
+    all.each do |hit|
       hit.score *= factor
     end
   end
   
   # Intersects to lists in such a way that the new list contains only
-  # the elements that are contained in both lists
+  # the elements that are contained in both lists. The intersected list
+  # gets the keywords of both lists.
   def intersect(results_list)
-    intersection_hits = @hits & results_list.all
+    intersection_hits = self.all & results_list.all
+    keywords = used_keywords | results_list.used_keywords
     
-    keywords = used_keywords.clone
-    keywords = keywords.concat results_list.used_keywords
     ResultsList.new(intersection_hits, keywords.uniq)
   end
   
-  # Creates a union of two result lists.
+  # Creates a union of two result lists. The returned list also contains
+  # all the keywords from the two lists.
   def unite (results_list)
-    puts "inside unite: #{results_list.count}"
-    puts count
-    union_hits = @hits | results_list.all
-    
+    union_hits = self.all | results_list.all
     keywords = used_keywords | results_list.used_keywords
-    list = ResultsList.new(union_hits, keywords.uniq)
-    puts "end of unite: #{list.count}"
-    list
+    
+    ResultsList.new(union_hits, keywords.uniq)
   end
   
+  # Scales the lists such that the highest score is 1 and the 
+  # lowest score is 0. The returned list will be sorted.
   def normalize
     unless @hits.empty? then 
       max = highest_score
