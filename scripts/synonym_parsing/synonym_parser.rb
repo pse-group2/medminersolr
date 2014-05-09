@@ -16,29 +16,35 @@ class SynonymParser
     terms.each do |term|
       text = term['text']
       synonyms = term['synonyms']
-
-      # puts text
+      synonyms.push text
       
-      unless TextProcessor.new(text).word_count != 1  then
-
-        synonyms = terms_with_word_count_one(synonyms)
-        
-        synonyms.push text
-        synonyms = synonyms.uniq
-        
-        synonyms.each do |syn|
-          line = ''
-          line = line << syn.downcase << ARROW << synonyms_to_string(synonyms)
-          file.puts line
-        end
-      end
+      synonyms = terms_with_word_count_one(synonyms)
+      synonyms.uniq!
+      # all_arrow_combinations(synonyms, file)
+      all_combinations_without_arrows(synonyms, file)
     end
 
     file.close
-
   end
 
   private
+  
+  def self.all_combinations_without_arrows(synonyms, file)
+    line = synonyms_to_string(synonyms)
+    word_count = TextProcessor.new(line).word_count
+    
+    unless line.empty? or word_count == 1 then
+      file.puts line
+    end
+  end
+  
+  def self.all_arrow_combinations(synonyms, file)
+    synonyms.each do |syn|
+      line = ''
+      line = line << syn.downcase << ARROW << synonyms_to_string(synonyms)
+      file.puts line
+    end
+  end
   
   def self.terms_with_word_count_one(term_array)
     term_array = term_array.map { |term| term = TextProcessor.new(term).word_count == 1 ? term : nil}
