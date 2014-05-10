@@ -1,17 +1,16 @@
 require 'json'
-require './app/models/text_processor'
+require '../../app/models/text_processor'
 
-class SynonymParser
+class SynonymExtractor
 
-  ARROW = ' => '
   DELIM = ','
   
-  def self.parse
+  def self.extract(from_json, to_file)
 
-    json = File.read('icd_2012_ch_de.json')
+    json = File.read(from_json)
     terms = JSON.parse(json)
-
-    file = File.open('./solr/conf/synonyms.txt', 'w')
+    
+    file = File.open(to_file, 'w')
 
     terms.each do |term|
       text = term['text']
@@ -20,8 +19,7 @@ class SynonymParser
       
       synonyms = terms_with_word_count_one(synonyms)
       synonyms.uniq!
-      # all_arrow_combinations(synonyms, file)
-      all_combinations_without_arrows(synonyms, file)
+      synonyms_to_file(synonyms, file)
     end
 
     file.close
@@ -29,7 +27,7 @@ class SynonymParser
 
   private
   
-  def self.all_combinations_without_arrows(synonyms, file)
+  def self.synonyms_to_file(synonyms, file)
     line = synonyms_to_string(synonyms)
     word_count = TextProcessor.new(line).word_count
     
@@ -38,17 +36,9 @@ class SynonymParser
     end
   end
   
-  def self.all_arrow_combinations(synonyms, file)
-    synonyms.each do |syn|
-      line = ''
-      line = line << syn.downcase << ARROW << synonyms_to_string(synonyms)
-      file.puts line
-    end
-  end
-  
   def self.terms_with_word_count_one(term_array)
-    term_array = term_array.map { |term| term = TextProcessor.new(term).word_count == 1 ? term : nil}
-    term_array = term_array.compact
+    term_array.map! { |term| term = TextProcessor.new(term).word_count == 1 ? term : nil}
+    term_array.compact!
     term_array
   end
   
@@ -61,5 +51,3 @@ class SynonymParser
   end
 
 end
-
-SynonymParser.parse
