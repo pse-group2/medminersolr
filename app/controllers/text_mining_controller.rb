@@ -1,9 +1,12 @@
 class TextMiningController < ApplicationController
   
+  @wikipedia_invisible = true
+  
   def search
     @text = params[:search_text]
 
     unless @text.blank? then
+      @wikipedia_invisible = false
       engine = SearchEngine.new(@text)
       @results = engine.search_results
       @used_keywords = printable_words_array(engine.used_keywords)
