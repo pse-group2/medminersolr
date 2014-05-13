@@ -36,8 +36,4 @@ class SearchHit
     Text.where(:text_id => primary_key).first
   end
   
-  def surrounding_text
-    text = text.content
-    p = TextProcessor.new(text)
-  end
 end

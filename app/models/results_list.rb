@@ -10,7 +10,6 @@ class ResultsList
   def initialize (search_hits, keywords=Array.new)
     @hits = search_hits.compact
     @used_keywords = keywords
-    search_hits.keywords = keywords
   end
   
   def count
