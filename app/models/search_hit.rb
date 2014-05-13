@@ -31,4 +31,13 @@ class SearchHit
   def page
     Page.where(:text_id => primary_key).first
   end
+  
+  def text
+    Text.where(:text_id => primary_key).first
+  end
+  
+  def surrounding_text
+    text = text.content
+    p = TextProcessor.new(text)
+  end
 end
