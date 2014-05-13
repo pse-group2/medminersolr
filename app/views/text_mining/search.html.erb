@@ -1,27 +1,27 @@
 <center>
 	
-	<h1>Medical Search</h1>
+	<h1>Medizinische Suche</h1>
 	
 	<%= form_tag("/text_mining/search", :method=>"post") do %>
 	<%= text_field_tag(:search_text, '' ,size: 70, :placeholder => @text) %>
-	<%= submit_tag("Search", :class=>"btn") %>
+	<%= submit_tag("Suche", :class=>"btn") %>
 	<% end %>
 	
 </center>
 
 <div id="all">
 	
-	<h2>Results</h2>	
-	<p>Used Keywords: <%= @used_keywords %></p>
-	<p><mark class="dimension_highlight" >Dimensionwords:</mark> <%= @dimensionwords %></p>
+	<h2>Ergebnisse</h2>	
+	<p>Schlüsselwörter: <%= @used_keywords %></p>
+	<p><mark class="dimension_highlight" >Dimensionswörter:</mark> <%= @dimensionwords %></p>
 	
 	<div id="results-frame">
 		
 		<table id="results-table">
 			<thead>
 				<tr>
-					<th class="page">Page</th>
-					<th class="score">Score</th>
+					<th class="page">Seite</th>
+					<th class="score">Relevanz</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,7 +46,10 @@
 	</div>
 	
 	<div id="wiki-frame">
-		<iframe name="page_display" src="http://www.wikipedia.org"></iframe>
+		<% if @wikipedia_invisible %>
+		<% 	c = ".invisible" %>
+		<% end %>
+		<iframe name="page_display" class=<%=c%> src="http://www.wikipedia.org"></iframe>
 	</div>
 </div>
 
