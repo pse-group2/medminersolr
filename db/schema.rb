@@ -11,26 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318204737) do
-
-  create_table "articles", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 0) do
 
   create_table "page", primary_key: "page_id", force: true do |t|
     t.text    "page_title"
-    t.integer "text_id",    null: false
-  end
-
-  create_table "pages", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "text_id"
   end
 
   create_table "text", primary_key: "text_id", force: true do |t|
-    t.integer "page_id",                  null: false
-    t.binary  "content", limit: 16777215
+    t.integer "page_id", null: false
+    t.text    "content"
   end
 
 end
