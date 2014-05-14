@@ -8,7 +8,7 @@ class Text  < ActiveRecord::Base
 
   searchable do
    
-    text :content, :stored => true
+    text :content
     text :page  do 
           page.page_title
     end
