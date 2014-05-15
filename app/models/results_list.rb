@@ -67,13 +67,18 @@ class ResultsList
   end
   
   # Scales the lists such that the highest score is 1 and the 
-  # lowest score is 0. The returned list will be sorted.
+  # lowest score is 0. If there's only one entry its score 
+  # will be 1 The returned list will be sorted.
   def normalize
     unless @hits.empty? then 
       max = highest_score
       min = lowest_score
       all.each do |hit| 
-        hit.score = (hit.score - min)/(max - min)
+        if (max == min) then
+          hit.score = 1
+        else
+          hit.score = (hit.score - min)/(max - min)
+        end      
       end
       sort
     end
