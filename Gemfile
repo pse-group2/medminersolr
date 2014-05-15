@@ -1,4 +1,3 @@
-
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -26,27 +25,29 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+# gem 'jbuilder', '~> 1.2'
 
-gem 'simple_form'
+# gem 'simple_form'
 
+# Gem to integrate MySQL databases with active record.
 gem 'mysql2'
 
-gem 'progress_bar'
 
-gem 'ruby-progressbar'
+# gem 'progress_bar'
+# 
+# gem 'ruby-progressbar'
 
-gem 'protected_attributes'
+# gem 'protected_attributes'
 
+# Sunspot with Solr
 gem 'sunspot_rails'
-
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 
 # Testing
 gem 'rspec'
 gem 'rspec-rails'
 
-# Text processing
+# Text processing with Treat
 gem 'treat'
 gem 'engtagger'
 gem 'stanford-core-nlp'
