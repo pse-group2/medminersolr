@@ -37,7 +37,7 @@ All the required gems are specified in the Gemfile. To install them, you can use
 
 If you get an error message saying that the JAVA_HOME path variable is not set, you have to do this in addition.
 
-##Sunspot 
+###Sunspot 
 
 In a next step, you need to generate the sunspot installation files for you sunspot gem:
 ```
@@ -65,5 +65,5 @@ exit
 
 ###Starting the Application
 
-Now, everything is installed and you are ready to go. First, start the Solr server wiht ```rake sunspot:solr:start```. Now, Solr has to create an index based on the database. This can be done by executing ```rake sunspot:solr:reindex```. This takes a while, but you have to do this only once. If it is finished, you can start the rails server with ```rails s``` and access the application at localhost:3000 in your browser.
+Now, everything is installed and you are ready to go. First, start the Solr server with ```rake sunspot:solr:start```. Now, Solr has to create an index based on the database. This can be done by executing ```rake sunspot:solr:reindex```. This takes a while, but you have to do this only once. If it is finished, you can start the rails server with ```rails s``` and access the application at localhost:3000 in your browser.
 
