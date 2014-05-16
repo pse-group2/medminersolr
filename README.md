@@ -28,7 +28,17 @@ To store all the downloaded wikipedia articles, we use a MySQL database. If you 
 ```
 sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 ```
-During the installation, you get asked to enter a password for root. Do not forget this password. You can also leave the password blank. Finally, you have to edit the database.yml in the projects config/ folder and add your mysql connection data there.
+During the installation, you get asked to enter a password for root. Do not forget this password. You can also leave the password blank. Finally, you have to edit the database.yml in the projects config/ folder and add your mysql connection data there. It should look like this:
+```
+development:
+  adapter: mysql2
+  database: dewiki
+  username: root
+  password: toor
+  encoding: utf8
+  port: 3306
+  host: localhost
+```
 
 ###Gems
 
