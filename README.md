@@ -7,7 +7,7 @@ Use ```git clone git@github.com:pse-group2/medminersolr.git``` to clone this pro
 ###Requirements
 
 The installation works on mac and linux. We will only describe the steps for linux here, but the commands on mac are very similar. We tested the installation on both Ubuntu 12.04 and 14.04.
-In order to use the solr server, Java 7 needs to be installed. We used the standard openjdk-7 package preinstalled on the ubuntu system.
+In order to use the solr server, Java 7 needs to be installed. We used the standard openjdk-7 package preinstalled on the Ubuntu system.
 
 ###Ruby and Rails
 
@@ -18,7 +18,7 @@ source ~/.rvm/scripts/rvm
 rvm use 2.1.1 (or the latest version)
 ```
 To easily install the gems needed for the project, we use bundler:
-```sudo apt-get install bundler```
+```gem install bundler```
 Rails also needs the nodejs package to work with javascript:
 ```sudo apt-get install nodejs```
 
@@ -53,14 +53,9 @@ require 'treat
 Treat::Core::Installer.install 'german'
 exit
 ```
-:::TODO:::
-DATANBANK FÜLLEN (evtl. nicht nötig)
-In den Ordner vom Dump (.sql file) wechseln
-mysql -u <username> -p
-create database <name>;
-use <name>;
-source <name des sql files>.sql
-exit
+###Filling the Database
+
+
 
 ###Starting the Application
 
