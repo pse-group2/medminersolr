@@ -6,9 +6,10 @@ require 'json'
 require 'open-uri'
 require 'ruby-progressbar'
 
+start = Time.now
+
 #number of downloaders that will be run
 threadNumber = 100;
-removerC = 20
 #database stuff, filenames, addresses
 username = "root"
 password = "toor"
@@ -58,8 +59,6 @@ while i < threadNumber
   i+=1
 end
 
-start = Time.now
-
 #create a thread for every downloader. run downloaders parallely.
 threads = []
 downloaders.each do |d|
@@ -82,34 +81,14 @@ totalDownloaded = sum
 pBar.finish
 
 print "\nRemoving articles about people...\n"
-removers = []
-i = 0
-while i < removerC
-  client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
-  removers << Remover.new(client, blacklist[(peopleCount/removerC)*i+i..(peopleCount/removerC)*(i+1)+i])
-  i+=1
-end
+deleteIDs = open(people_filename).read.gsub('","', ",\n").gsub('["', "(").gsub('"]', ")")
+@client.query("DELETE FROM page WHERE page_id IN #{deleteIDs};")
+@client.query("DELETE FROM text WHERE page_id IN #{deleteIDs};")
 
-threads = []
-removers.each do |r|
-    threads << Thread.new{r.start}
-end
-
-print "Running #{removers.count} removers on #{peopleCount.to_i} entries...\n"
-pBar = ProgressBar.create(:title => " Removing people: ", :total => peopleCount, :format => '%t %p%% |%B| %a')
-sum = 0
-while sum < peopleCount
-  sum = 0
-  removers.each do |d|
-    sum += d.c
-  end
-  pBar.progress=sum
-  sleep 1
-end
 
 #time stats
 finish = Time.now
 t = finish-start
 mm, ss = t.divmod(60)          
 hh, mm = mm.divmod(60)          
-print "\nDone! Downloaded #{totalDownloaded} of #{totalLength}. #{peopleCount} articles were blacklisted. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
+print "\nDone! Downloaded #{totalDownloaded} of #{totalLength}. #{peopleCount} articles about people removed. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
