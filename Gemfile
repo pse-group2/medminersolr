@@ -21,9 +21,7 @@ gem 'turbolinks'
 # Gem to integrate MySQL databases with active record.
 gem 'mysql2'
 
-
-# gem 'progress_bar'
-# 
+# A convenient progressbar for ruby.
 gem 'ruby-progressbar'
 
 # Sunspot with Solr
@@ -33,6 +31,7 @@ gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in developm
 # Testing
 gem 'rspec'
 gem 'rspec-rails'
+gem 'sqlite3'
 
 # Text processing with Treat
 gem 'treat'

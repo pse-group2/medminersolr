@@ -125,6 +125,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sqlite3 (1.3.9)
     stanford-core-nlp (0.5.1)
       bind-it (~> 0.2.5)
     sunspot (2.1.0)
@@ -170,6 +171,7 @@ DEPENDENCIES
   ruby-progressbar
   sass-rails (~> 4.0.0)
   sdoc
+  sqlite3
   stanford-core-nlp
   sunspot_rails
   sunspot_solr
