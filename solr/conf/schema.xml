@@ -60,23 +60,51 @@ that avoids logging every request
         <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
         <!-- *** This fieldType is used by Sunspot! *** -->
       
-      
+        <!-- Here are some changes to the original Sunspot configuration.
+        Original Configuration:
+          <fieldType name="text" class="solr.TextField" omitNorms="false">
+            <analyzer>
+                <tokenizer class="solr.StandardTokenizerFactory"/> -Replaced by WhitespaceTokenizer
+                <filter class="solr.StandardFilterFactory"/>       -Replaced by more specific filters
+                <filter class="solr.LowerCaseFilterFactory"/>      
+                <filter class="solr.PorterStemFilterFactory"/>     -No further use because we are indexing the 
+                                                                    german Wikipedia this filter is for english stemming.
+            </analyzer>
+        </fieldType> -->
+        <!-- Our Configuration: -->
         <fieldType name="text" class="solr.TextField" omitNorms="false">
+            <!-- First Separation in query and index analyzers to make better use of the different filters. -->
             <analyzer type="query">
+                <!-- Used for indexing seperated words as seperated tokens. Replaces StandardTokenizer and is combined
+                with the worddelimiter -->
             	<tokenizer class="solr.WhitespaceTokenizerFactory" />
-            	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" preserveOriginal="1" />
-	           	<filter class="solr.LowerCaseFilterFactory"/>             
+            	<!-- Filter to part word in subwords. GenerateWordParts=0 because in our implementation its not important to
+            	 part words on querytime. -->
+               	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" preserveOriginal="1" />
+	           	<filter class="solr.LowerCaseFilterFactory"/> 
+	            <!-- Filter to ignore words from stopwords file so that the search doesnt search for common words -->
               	<filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
                 
             </analyzer>
             <analyzer type="index">
                	<tokenizer class="solr.WhitespaceTokenizerFactory" />
+               	<!-- Filter to part word in smaler tokens and index them including the original -->
                	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" preserveOriginal="1"/>
+               	<!-- In the synonyms.txt file predefined synonyms will be indexed as synonyms. First its done with 
+               	the KeywordTokenizer which takes the whole words. After that the LetterTokenizer will handle all the
+               	special characters -->
                	<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.KeywordTokenizerFactory" />
                	<filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.LetterTokenizerFactory" />
                 <filter class="solr.LowerCaseFilterFactory"/>  
+                <!-- Filter to ignore words from stopwords file so that common words will not be indexed-->
 				<filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+				<!-- Since we didnt found a usefull stemmer for the medical vocabular this filter is used to 
+				index parts of the word to. But unlike the Worddelimiter this filter splits the words not
+				only on Points with special punctuation. This filter indexes every subword with 3-30 characters 
+				from the beginning -->
                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="30" side="front"/>
+                <!-- This filter picks out the common words in the grams from the previous factory 
+                end remove them. Common grams are defined through the stopwords.txt -->
                 <filter class="solr.CommonGramsFilterFactory" words="stopwords.txt" ignoreCase="true"/>
             </analyzer>
         </fieldType>
