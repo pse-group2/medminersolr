@@ -73,10 +73,10 @@ that avoids logging every request
         </fieldType> -->
         <!-- Our Configuration: -->
         <fieldType name="text" class="solr.TextField" omitNorms="false">
-            <!-- First Separation in query and index analyzers to make better use of the different filters. -->
+            <!-- First separation in query and index analyzers to make better use of the different filters. -->
             <analyzer type="query">
-                <!-- Used for indexing seperated words as seperated tokens. Replaces StandardTokenizer and is combined
-                with the worddelimiter -->
+                <!-- Used to index seperated words as seperated tokens. Replaces StandardTokenizer and is combined
+                with the WordDelimiter -->
             	<tokenizer class="solr.WhitespaceTokenizerFactory" />
             	<!-- Filter to part word in subwords. GenerateWordParts=0 because in our implementation its not important to
             	 part words on querytime. -->
@@ -88,7 +88,7 @@ that avoids logging every request
             </analyzer>
             <analyzer type="index">
                	<tokenizer class="solr.WhitespaceTokenizerFactory" />
-               	<!-- Filter to part word in smaler tokens and index them including the original -->
+               	<!-- Filter to part word in smaller tokens and index them including the original -->
                	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" preserveOriginal="1"/>
                	<!-- In the synonyms.txt file predefined synonyms will be indexed as synonyms. First its done with 
                	the KeywordTokenizer which takes the whole words. After that the LetterTokenizer will handle all the
@@ -99,12 +99,12 @@ that avoids logging every request
                 <!-- Filter to ignore words from stopwords file so that common words will not be indexed-->
 				<filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
 				<!-- Since we didnt found a usefull stemmer for the medical vocabular this filter is used to 
-				index parts of the word to. But unlike the Worddelimiter this filter splits the words not
-				only on Points with special punctuation. This filter indexes every subword with 3-30 characters 
+				index parts of the word too. Unlike the WordDelimiter this filter splits the words not
+				only on points with special punctuation but indexes also every subword with 3-30 characters 
 				from the beginning -->
                 <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="30" side="front"/>
                 <!-- This filter picks out the common words in the grams from the previous factory 
-                end remove them. Common grams are defined through the stopwords.txt -->
+                and remove them. Common grams are defined through the stopwords.txt -->
                 <filter class="solr.CommonGramsFilterFactory" words="stopwords.txt" ignoreCase="true"/>
             </analyzer>
         </fieldType>
