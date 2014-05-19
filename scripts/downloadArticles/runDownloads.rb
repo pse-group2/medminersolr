@@ -26,8 +26,16 @@ womenURL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&pro
 #DB layout:
 #TABLE page, ROW page_id (int), ROW page_title (text), ROW text_id(int)
 #TABLE text, ROW page_id (int), ROW content (medium_blob), ROW text_id(int)
-@client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :database => dbname)
+@client = Mysql2::Client.new(:host => "localhost", :username => username, :password => password, :flags => Mysql2::Client::MULTI_STATEMENTS)
 #TODO: check if DB exists and if no, create one with the appropriate name
+@client.query("CREATE DATABASE IF NOT EXISTS #{dbname};")
+@client.select_db(dbname)
+setupquery = File.open("setup.sql","r").read
+puts setupquery
+@client.query(setupquery)
+exit
+
+
 
 #create json file with articles about people (only IDs) if none exists
 unless File.exists?(people_filename)
