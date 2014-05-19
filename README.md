@@ -40,6 +40,8 @@ development:
   host: localhost
 ```
 
+Make sure that the database name is not already in use.
+
 ###Gems
 
 All the required gems are specified in the Gemfile. To install them, you can use the bundler that we installed before with ```bundle install```.
