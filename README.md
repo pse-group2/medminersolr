@@ -65,7 +65,7 @@ exit
 ```
 ###Filling the Database
 
-
+In a next step, we have to download the wikipedia contents we want. To do this, run the update task ```rake wiki:update```. This will download the pages from the category medicine. In addition, a remover will delete all pages about persons.
 
 ###Starting the Application
 
