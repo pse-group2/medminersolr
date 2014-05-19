@@ -93,8 +93,14 @@ namespace :wiki do
     username = config[Rails.env]["username"]
     password = config[Rails.env]["password"]
     
-    #TODO: check if DB exists and if no, create one with the appropriate name
-    Mysql2::Client.new(:host => host, :username => username, :password => password, :database => dbname)
+    client = Mysql2::Client.new(:host => host, :username => username, :password => password, :database => dbname)
+    
+    if client.query("SHOW DATABASES LIKE '#{dbname}'").count == 0
+      client.query("CREATE DATABASE #{dbname}")
+      client.select_db(dbname)
+      client.query(File.open("setup.sql","r").read)
+    end
+    
   end
   
   def download_article_data
