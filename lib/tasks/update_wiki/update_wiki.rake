@@ -24,11 +24,10 @@ namespace :wiki do
   task :download  => :environment do
     
     start = Time.now
-    #load article data into array
     articles = download_article_data
     totalLength = articles.length
     
-    #create downloaders, store in array - the array is split evenly among the downloaders, every downloader receives a subarray
+    #multiple instances of Downloader are run in separate threads, allowing a faster download speed
     downloaders = []
     i = 0
     while i < THREAD_NUMBER
@@ -37,14 +36,12 @@ namespace :wiki do
       i+=1
     end
     
-    #create a thread for every downloader. run downloaders parallely.
     threads = []
     downloaders.each do |d|
         threads << Thread.new{d.startDownload}
     end
     print "Running #{downloaders.count} downloaders on #{totalLength.to_i} entries...\n"
     pct = 0
-    #loop for displaying the downloader's progress 
     pBar = ProgressBar.create(:title => " Downloading articles: ", :total => totalLength, :format => '%t %p%% |%B| %a')
     sum = 0
     while sum < totalLength
@@ -58,8 +55,6 @@ namespace :wiki do
     totalDownloaded = sum
     pBar.finish
     
-    
-    #time stats
     finish = Time.now
     t = finish-start
     mm, ss = t.divmod(60)          
@@ -72,7 +67,6 @@ namespace :wiki do
     
     client = connect_to_database
     
-     #load IDs of articles about people into array
     blacklist = download_people_data
     peopleCount = blacklist.count
     
@@ -85,7 +79,7 @@ namespace :wiki do
   
   task :update => [:download, :remove_people]
   
-  
+  #returns a mysql client. if no database with the specified name exists, one is created.
   def connect_to_database
     config = Rails.configuration.database_configuration
     host = config[Rails.env]["host"]
@@ -100,6 +94,8 @@ namespace :wiki do
       client.select_db(dbname)
       client.query(File.open("setup.sql","r").read)
     end
+    
+    return client
     
   end
   
