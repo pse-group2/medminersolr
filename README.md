@@ -40,6 +40,8 @@ development:
   host: localhost
 ```
 
+Make sure that the database name is not already in use.
+
 ###Gems
 
 All the required gems are specified in the Gemfile. To install them, you can use the bundler that we installed before with ```bundle install```.
@@ -65,7 +67,7 @@ exit
 ```
 ###Filling the Database
 
-
+In a next step, we have to download the wikipedia contents we want. To do this, run the update task ```rake wiki:update```. This will download the pages from the category medicine. In addition, a remover will delete all pages about persons.
 
 ###Starting the Application
 
