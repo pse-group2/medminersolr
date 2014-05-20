@@ -48,9 +48,7 @@ All the required gems are specified in the Gemfile. To install them, you can use
 
 If you get an error message saying that the JAVA_HOME path variable is not set, you have to do this in addition.
 
-For two other gems, you need to run an extra installation to make them work.
-
-For the sunspot gem, you need to generate some installation files:
+For two other gems, you need to run an extra installation to make them work. For the sunspot gem, you need to generate some installation files:
 ```
 rake installation:sunspot
 ```
@@ -63,9 +61,9 @@ Now, all the gems should be installed properly.
 
 ###Filling the Database
 
-In a next step, we have to download the wikipedia contents we want. To do this, run the update task ```rake wiki:update```. This will download the pages from the category medicine. In addition, a remover will delete all pages about persons.
+In a next step, we have to download the wikipedia contents we want. To do this, run the update task ```rake wiki:update```. This will download the pages from the category medicine. In addition, a remover will delete all pages about persons. The data will be written into the database declared in the database.yml file. If the database does not exist, it will create a new database with the name from the database.yml file.
 
 ###Starting the Application
 
-Now, everything is installed and you are ready to go. First, start the Solr server with ```rake sunspot:solr:start```. Now, Solr has to create an index based on the database. This can be done by executing ```rake sunspot:solr:reindex```. This takes a while, but you have to do this only once. If it is finished, you can start the rails server with ```rails s``` and access the application at localhost:3000 in your browser.
+Now, everything is installed and you are ready to go. First, start the Solr server with ```rake sunspot:solr:start```. Now, Solr has to create an index based on the database. This can be done by executing ```rake sunspot:solr:reindex```. This takes a while, but you have to do this only once or when you update the database. If it is finished, you can start the rails server with ```rails s``` and access the application at localhost:3000 in your browser.
 
