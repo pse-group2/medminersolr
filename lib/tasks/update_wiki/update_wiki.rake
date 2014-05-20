@@ -8,13 +8,14 @@ require_relative 'PeopleGetter'
 
 ARTICLES_FILENAME = Rails.root + 'tmp/articles.json'
 PEOPLE_FILENAME =  Rails.root + 'tmp/people_list.json'
+SETUP_FILE = Rails.root + "lib/resources/setup.sql"
 #JSON - intersection of "Medizin" and "Mann" resp. "Frau" to filter out people later on
 MEN_URL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin%0D%0AMann&ns=0&depth=12&max=30000&start=0&format=json&redirects=&callback="
 WOMEN_URL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin%0D%0AFrau&ns=0&depth=12&max=30000&start=0&format=json&redirects=&callback=" 
 #JSON - source of all articles in the category "Medizin"
 ARTICLE_SOURCE = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin&ns=0&depth=-1&max=100000&start=0&format=json&redirects=&callback="
 # Number of downloaders that will be run.
-THREAD_NUMBER = 100;
+THREAD_NUMBER = 50;
 
 namespace :wiki do  
   
@@ -81,16 +82,19 @@ namespace :wiki do
     username = config[Rails.env]["username"]
     password = config[Rails.env]["password"]
     
-    client = Mysql2::Client.new(:host => host, :username => username, :password => password, :database => dbname)
+    client = Mysql2::Client.new(:host => host, :username => username, :password => password, :flags => Mysql2::Client::MULTI_STATEMENTS)
     
     if client.query("SHOW DATABASES LIKE '#{dbname}'").count == 0
       print "Database '#{dbname}' not found, creating..."
       client.query("CREATE DATABASE #{dbname}")
+      print "\n" + File.open(SETUP_FILE,"r").read
       client.select_db(dbname)
-      client.query(File.open("setup.sql","r").read)
+      client.query(File.open(SETUP_FILE,"r").read)
     end
     
-    return client
+    finalClient = Mysql2::Client.new(:host => host, :username => username, :password => password, :database => dbname)
+    
+    return finalClient
     
   end
   
