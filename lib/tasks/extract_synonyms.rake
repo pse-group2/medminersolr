@@ -1,7 +1,7 @@
 require 'json'
 
 task :extract_synonyms => :environment do
-  extract(Rails.root + 'lib/icd_2012_ch_de.json', Rails.root + 'solr/conf/synonyms.txt')
+  extract(Rails.root + 'lib/resources/icd_2012_ch_de.json', Rails.root + 'solr/conf/synonyms.txt')
 end
 
 DELIM = ','
