@@ -6,7 +6,7 @@ class SearchEngine
   # the input text occurs in the title of an article.
   PAGE_TITLE_BOOST = 0.5
   
-  DIMENSION_WORDS_FILE_PATH = Rails.root.to_s + "/solr/conf/dimensionwords.txt"
+  DIMENSION_WORDS_FILE_PATH = Rails.root.to_s + "/lib/resources/dimensionwords.txt"
   
   attr_reader :input, :used_keywords, :dimensionwords
   
