@@ -2,7 +2,6 @@ require 'json'
 require 'open-uri'
 require 'ruby-progressbar'
 require_relative 'Downloader'
-require_relative 'Remover'
 require_relative 'ArticleGetter'
 require_relative 'PeopleGetter'
 
@@ -42,6 +41,7 @@ namespace :wiki do
     print "Running #{downloaders.count} downloaders on #{totalLength.to_i} entries...\n"
     pct = 0
     pBar = ProgressBar.create(:title => " Downloading articles: ", :total => totalLength, :format => '%t %p%% |%B| %a')
+    sum = 0
     while sum < totalLength
       sum = 0
       downloaders.each do |d|
@@ -65,7 +65,7 @@ namespace :wiki do
     client = connect_to_database
     
     print "\nRemoving articles about people...\n" 
-    deleteIDS = download_people_data.gsub('","', ",\n").gsub('["', "(").gsub('"]', ")")
+    deleteIDs = download_people_data.gsub('","', ",\n").gsub('["', "(").gsub('"]', ")")
     client.query("DELETE FROM page WHERE page_id IN #{deleteIDs};")
     client.query("DELETE FROM text WHERE page_id IN #{deleteIDs};")
     
