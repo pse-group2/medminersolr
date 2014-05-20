@@ -29,15 +29,27 @@ class Downloader
   
   def startDownload
     @input.each do |name|
-      unless @client.query("SELECT * FROM page WHERE page_id = #{name["page_id"]}").count == 1
-        url = "http://de.wikipedia.org/w/index.php?curid=#{name["page_id"]}"
-        doc = Nokogiri::HTML(openURL(url))
-        text = ''
-        doc.css('p,h1').each do |e|
-          text << e.content
+      
+      while @client.query("SELECT * FROM page WHERE page_id = #{name["page_id"]}").first.nil? do
+        
+        begin 
+          
+          url = "http://de.wikipedia.org/w/index.php?curid=#{name["page_id"]}"
+          doc = Nokogiri::HTML(openURL(url))
+          text = ''
+          
+          doc.css('p,h1').each do |e|
+            text << e.content
+          end
+          
+          @client.query("INSERT INTO page (page_id, page_title, text_id) VALUES(#{name["page_id"]}, '#{name["page_title"].gsub("'", %q(\\\'))}', #{name["text_id"]})")
+          @client.query("INSERT INTO text (page_id, content, text_id) VALUES(#{name["page_id"]}, '#{text.gsub("'", %q(\\\'))}', #{name["text_id"]})")
+        
+        rescue SocketError
+          puts "\nWikipedia blocked the request, retrying in 10 seconds."
+          sleep(10)
         end
-        @client.query("INSERT INTO page (page_id, page_title, text_id) VALUES(#{name["page_id"]}, '#{name["page_title"].gsub("'", %q(\\\'))}', #{name["text_id"]})")
-        @client.query("INSERT INTO text (page_id, content, text_id) VALUES(#{name["page_id"]}, '#{text.gsub("'", %q(\\\'))}', #{name["text_id"]})")
+        
       end
       @c+=1
     end
