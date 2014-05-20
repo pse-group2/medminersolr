@@ -48,23 +48,19 @@ All the required gems are specified in the Gemfile. To install them, you can use
 
 If you get an error message saying that the JAVA_HOME path variable is not set, you have to do this in addition.
 
-###Sunspot 
+For two other gems, you need to run an extra installation to make them work.
 
-In a next step, you need to generate the sunspot installation files for you sunspot gem:
+For the sunspot gem, you need to generate some installation files:
 ```
-rails generate sunspot_rails:install
+rake installation:sunspot
 ```
 If you get asked to overwrite a file called sunspot.yml, you can do so.
-
-###Treat
-
-To setup the treat gem, simply run these operations:
+To setup the treat gem for the german language, simply run this rake task:
 ```
-sudo irb
-require 'treat
-Treat::Core::Installer.install 'german'
-exit
+rake installation:install_german
 ```
+Now, all the gems should be installed properly.
+
 ###Filling the Database
 
 In a next step, we have to download the wikipedia contents we want. To do this, run the update task ```rake wiki:update```. This will download the pages from the category medicine. In addition, a remover will delete all pages about persons.
