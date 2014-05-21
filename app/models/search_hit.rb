@@ -1,11 +1,13 @@
-# This class simply wraps the Hit class from Sunspot to make the score writable.
+# This class simply adapts the Hit class from Sunspot to make the score writable.
 # It is used to merge lists of search results. 
 class SearchHit
   
   attr_accessor :score
   # Can be set from outside to mark if the article of this
-  # SearchHit contains a dimension word
+  # SearchHit contains a dimension word.
   attr_accessor :contains_dimensionword
+  # This primary key is used to identify the text and page this 
+  # SearchHit refers to.
   attr_reader :primary_key
   
   # Requires a Sunspot::Search::Hit
@@ -32,6 +34,7 @@ class SearchHit
     Page.where(:text_id => primary_key).first
   end
   
+  # Returns the text associated with this SearchHit.
   def text
     Text.where(:text_id => primary_key).first
   end

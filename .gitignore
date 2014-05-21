@@ -21,3 +21,5 @@ pickle-email-*.html
 /solr/development/data/tlog/*
 /solr/pids/development/*
 /nbproject/*
+/tmp/articles.json
+/tmp/people_list.json
