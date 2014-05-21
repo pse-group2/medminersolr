@@ -4,7 +4,7 @@ require 'ruby-progressbar'
 require_relative 'Downloader'
 require_relative 'ArticleGetter'
 require_relative 'PeopleGetter'
-
+Thread.abort_on_exception=true
 
 ARTICLES_FILENAME = Rails.root + 'tmp/articles.json'
 PEOPLE_FILENAME =  Rails.root + 'tmp/people_list.json'
@@ -15,7 +15,7 @@ WOMEN_URL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&pr
 #JSON - source of all articles in the category "Medizin"
 ARTICLE_SOURCE = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin&ns=0&depth=-1&max=100000&start=0&format=json&redirects=&callback="
 # Number of downloaders that will be run.
-THREAD_NUMBER = 50;
+THREAD_NUMBER = 50
 
 namespace :wiki do  
   
