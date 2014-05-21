@@ -6,8 +6,6 @@ require_relative 'ArticleGetter'
 require_relative 'PeopleGetter'
 Thread.abort_on_exception=true
 
-ARTICLES_FILENAME = Rails.root + 'tmp/articles.json'
-PEOPLE_FILENAME =  Rails.root + 'tmp/people_list.json'
 SETUP_FILE = Rails.root + "lib/resources/setup.sql"
 #JSON - intersection of "Medizin" and "Mann" resp. "Frau" to filter out people later on
 MEN_URL = "http://tools.wmflabs.org/catscan2/quick_intersection.php?lang=de&project=wikipedia&cats=Medizin%0D%0AMann&ns=0&depth=12&max=30000&start=0&format=json&redirects=&callback="
@@ -100,25 +98,14 @@ namespace :wiki do
   
   #creates a json file with article data if none exists
   def download_article_data
-    
-    unless File.exists?(ARTICLES_FILENAME)
-      print "Getting list of articles...\n"
-      ArticleGetter.new(ARTICLES_FILENAME, [ARTICLE_SOURCE]).download
-    end
-    
-    JSON.parse(open(ARTICLES_FILENAME).read)
+    print "Getting list of articles...\n"
+    ArticleGetter.new([ARTICLE_SOURCE]).download
   end
   
   #creates a json file containing the IDs of articles about people if none exists
   def download_people_data
-    
-    unless File.exists?(PEOPLE_FILENAME)
-      print "Getting IDs of articles about people...\n"
-      PeopleGetter.new(PEOPLE_FILENAME, [MEN_URL, WOMEN_URL]).download
-    end
-    
-    open(PEOPLE_FILENAME).read
-    
+    print "Getting IDs of articles about people...\n"
+    PeopleGetter.new([MEN_URL, WOMEN_URL]).download
   end
   
 end
