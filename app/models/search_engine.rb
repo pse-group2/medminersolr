@@ -5,7 +5,7 @@ class SearchEngine
   # The amount of boost applied to the score if a part of
   # the input text occurs in the title of an article.
   PAGE_TITLE_BOOST = 0.5
-  
+  # Words in this file will be treated as dimension words.
   DIMENSION_WORDS_FILE_PATH = Rails.root.to_s + "/lib/resources/dimensionwords.txt"
   
   attr_reader :input, :used_keywords, :dimensionwords
@@ -53,6 +53,8 @@ class SearchEngine
     keywords
   end
   
+  # Returns an array containing all words from the file stored at
+  # the given path_to_file.
   def extract_dimensionwords_from_file(path_to_file)
     file = File.open(path_to_file)
     all_dimensionwords = file.read.split("\n")
@@ -84,6 +86,8 @@ class SearchEngine
     @results_lists.push results
   end
   
+  # Every SearchHit that contains a dimension word from the input in the 
+  # text (content) gets marked. Is used later for highlighting.
   def mark_hits_containing_dimensionwords(results_list)
     results_list.all.each do |hit|
       key = hit.primary_key

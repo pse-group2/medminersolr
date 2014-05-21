@@ -16,11 +16,15 @@ class ResultsList
     all.size
   end
   
+  # Returns the highest score in this list.
+  # The list will be sorted.
   def highest_score
     sort
     all.first.score
   end
   
+  # Returns the lowest score in this list.
+  # The list will be sorted.
   def lowest_score
     sort
     all.last.score
@@ -30,12 +34,12 @@ class ResultsList
     highest_score - lowest_score
   end
   
-  # Returns all the hits in this list
+  # Returns all the hits in this list.
   def all
     @hits
   end
   
-  # Sorts the list descending by scores
+  # Sorts the list descending by scores.
   def sort
     @hits = all.sort {|x,y| y.score <=> x.score }
   end
@@ -67,8 +71,8 @@ class ResultsList
   end
   
   # Scales the lists such that the highest score is 1 and the 
-  # lowest score is 0. If there's only one entry its score 
-  # will be 1 The returned list will be sorted.
+  # lowest score is 0. If there is only one entry in the list, its score 
+  # will be 1. The returned list will be sorted.
   def normalize
     unless @hits.empty? then 
       max = highest_score
