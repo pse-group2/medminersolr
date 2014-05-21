@@ -27,6 +27,7 @@ class SearchEngine
     single_list = @results_lists.merge
     
     @used_keywords = single_list.used_keywords
+    mark_hits_containing_dimensionwords(single_list)
     
     single_list
   end
@@ -43,18 +44,18 @@ class SearchEngine
   # dimension words get stored. Returns an array containing no dimension
   # words.
   def filter_dimensionwords(words_array)
-    all_dimensionwords = extract_dimensionwords_from_file(DIMENSION_WORDS_FILE_PATH)
+    file = File.open(DIMENSION_WORDS_FILE_PATH)
+    all_dimensionwords = file.read.split("\n")
+    all_dimensionwords = all_dimensionwords.compact.map(&:downcase)
+    
     words = words_array.map(&:downcase)
+    
     keywords =  words - all_dimensionwords
-    @dimensionwords = words - keywords   
+    @dimensionwords = words - keywords
+    
     keywords
   end
   
-  def extract_dimensionwords_from_file(path_to_file)
-    file = File.open(path_to_file)
-    all_dimensionwords = file.read.split("\n")
-    all_dimensionwords = all_dimensionwords.compact.map(&:downcase)   
-  end
   # Produces a search request for every word in the keywords_array.
   def keyword_search(keywords_array)
     keywords_array.each do |keyword|
@@ -77,6 +78,18 @@ class SearchEngine
     
     results = ResultsList.new(search_hits, [text])
     @results_lists.push results
+  end
+  
+  def mark_hits_containing_dimensionwords(results_list)
+    results_list.all.each do |hit|
+      key = hit.primary_key
+      @dimensionwords.each do |word|
+        rows = Text.where(:text_id => key).where("content LIKE ?", "%#{word}%")
+        unless rows.size < 1 then
+          hit.contains_dimensionword = true
+        end
+      end
+    end
   end
   
 end
