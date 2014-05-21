@@ -44,10 +44,7 @@ class SearchEngine
   # dimension words get stored. Returns an array containing no dimension
   # words.
   def filter_dimensionwords(words_array)
-    file = File.open(DIMENSION_WORDS_FILE_PATH)
-    all_dimensionwords = file.read.split("\n")
-    all_dimensionwords = all_dimensionwords.compact.map(&:downcase)
-    
+    all_dimensionwords = extract_dimensionwords_from_file(DIMENSION_WORDS_FILE_PATH)
     words = words_array.map(&:downcase)
     
     keywords =  words - all_dimensionwords
@@ -56,6 +53,13 @@ class SearchEngine
     keywords
   end
   
+  def extract_dimensionwords_from_file(path_to_file)
+    file = File.open(path_to_file)
+    all_dimensionwords = file.read.split("\n")
+    all_dimensionwords = all_dimensionwords.compact.map(&:downcase)   
+  end
+
+
   # Produces a search request for every word in the keywords_array.
   def keyword_search(keywords_array)
     keywords_array.each do |keyword|
