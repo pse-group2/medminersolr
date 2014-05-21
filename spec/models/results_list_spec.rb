@@ -38,6 +38,26 @@ describe ResultsList do
     intersect1.all[0].should eql hit2
     intersect2.all[0].should eql hit3
   end
+  
+   it "can intersect with another list with 1 or 0 entry" do
+    hit1 = double("Hit", :primary_key => 2)
+    hit2 = double("Hit", :primary_key => 4)
+    hit3 = double("Hit", :primary_key => 1)
+    
+    
+    hits1 = [hit1, hit2, hit3]
+    hits2 = [hit3]
+    hits3 =[]
+    
+    list1 = ResultsList.new(hits1)
+    list2 = ResultsList.new(hits2)
+    list3 = ResultsList.new(hits3)
+    
+    intersect1 = list1.intersect(list2)
+    intersect2 = list2.intersect(list1)
+    intersect3 = list3.intersect(list1)
+    
+  end
  
   it "can unite with another list" do
     hit1 = double("Hit", :primary_key => 2)
@@ -60,4 +80,5 @@ describe ResultsList do
     union1.all[0].should eql hit1
     union2.all[0].should eql hit4
   end
+ 
 end

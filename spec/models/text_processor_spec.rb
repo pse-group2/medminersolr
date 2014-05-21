@@ -16,6 +16,7 @@ describe TextProcessor do
     "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. "\
     "Nulla consequat massa quis enim. Donec pede justo, fringilla vel, "\
     "aliquet nec, vulputate eget, arcu."
+  text2 = "Er kommt nach Hause. Nach Hause kommt er."
     
   it "counts words correctly" do
     TextProcessor.new(text).word_count.should be == 52
@@ -33,6 +34,12 @@ describe TextProcessor do
     end
   end
 
+  it "returns words correctly and removes duplicates case sensitive" do
+    t = TextProcessor.new(text2)
+    expected = ['Er','kommt','nach','Hause','Nach','er']
+    t.words.should =~ expected
+  end
+  
   it "measures the frequency ignoring case sensitivity" do
     t = TextProcessor.new(text)
     t.frequency_of('Lorem').should be == 1
