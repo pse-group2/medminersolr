@@ -26,31 +26,6 @@ class TextProcessor
   def words
     text.words.map {|word| word.to_s}.uniq
   end
-  
-  def surrounding_text(word, scope)
-    words = text.words.map {|w| w.to_s}
-    index = words.index word
-    
-    go_left = scope
-    go_right = scope
-    
-    if index < scope
-      go_left = index
-    end
-    if scope + index > words.size
-      go_right = scope + index
-    end
-    
-    start = index - go_left
-    stop = index + go_right
-    
-    arr = Array.new
-    
-    [start..stop].each do |i|
-      arr << words[i]
-    end
-    arr.join(" ")
-  end
 
   # Returns an array of all the nouns occurring in the text.
   def nouns
@@ -72,10 +47,6 @@ class TextProcessor
       end
     end
     adjectives
-  end
-
-  def keywords
-    nouns.concat adjectives
   end
 
   def self.is_noun(word)
