@@ -99,13 +99,13 @@ namespace :wiki do
   #creates a json file with article data if none exists
   def download_article_data
     print "Getting list of articles...\n"
-    ArticleGetter.new([ARTICLE_SOURCE]).download
+    ArticleGetter.new([ARTICLE_SOURCE]).result
   end
   
   #creates a json file containing the IDs of articles about people if none exists
   def download_people_data
     print "Getting IDs of articles about people...\n"
-    PeopleGetter.new([MEN_URL, WOMEN_URL]).download
+    PeopleGetter.new([MEN_URL, WOMEN_URL]).result
   end
   
 end
