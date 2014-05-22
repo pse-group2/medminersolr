@@ -1,4 +1,4 @@
-#PeopleGetter downloads a list of JSON files created with http://tools.wmflabs.org/catscan2/quick_intersection.php, extracts the IDs and returns them in a JSON file
+#PeopleGetter downloads a list of JSON files created with http://tools.wmflabs.org/catscan2/quick_intersection.php, extracts the IDs and returns them in an array
 
 require 'json'
 require 'open-uri'
@@ -26,16 +26,17 @@ class PeopleGetter
 
       c = 0
       pages.each do |entry|
-        result << entry["page_id"]
+        result << entry["page_id"].to_i
         c+=1
         print "\rExtracting relevant data... #{c} of #{pages.count} entries extracted."
       end
+      print "\n"
       counter+=1
     end
     
     print "Done!\n"
     
-    return result.to_json
+    return result
   end
   
 end

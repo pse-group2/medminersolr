@@ -36,6 +36,7 @@ class ArticleGetter
         c+=1
         print "\rExtracting relevant data... #{c} of #{pages.count} entries extracted."
       end
+      print "\n"
       counter+=1
     end
     

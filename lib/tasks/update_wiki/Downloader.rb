@@ -30,9 +30,7 @@ class Downloader
   def startDownload
     @input.each do |name|
       while @client.query("SELECT * FROM page WHERE page_id = #{name["page_id"]}").first.nil? do
-        
         begin 
-          
           page_id = name["page_id"].to_i
           page_title = name["page_title"]
           text_id = name["text_id"].to_i

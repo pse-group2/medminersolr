@@ -55,7 +55,7 @@ namespace :wiki do
     t = finish-start
     mm, ss = t.divmod(60)          
     hh, mm = mm.divmod(60)          
-    print "\nDone! Downloaded #{sum} of #{totalLength}. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
+    print "Done! Downloaded #{sum} of #{totalLength}. Time elapsed: %d hours, %d minutes and %d seconds\n" % [hh, mm, ss]
   end
   
   desc "Removes pages about people in the database"
@@ -63,8 +63,9 @@ namespace :wiki do
     
     client = connect_to_database
     
-    print "\nRemoving articles about people...\n" 
-    deleteIDs = download_people_data.gsub('","', ",\n").gsub('["', "(").gsub('"]', ")")
+    result = download_people_data
+    deleteIDs = result.to_json.gsub('[', "(").gsub(']', ")")
+    print "Removing articles about people... Deleting #{result.size} articles\n" 
     client.query("DELETE FROM page WHERE page_id IN #{deleteIDs};")
     client.query("DELETE FROM text WHERE page_id IN #{deleteIDs};")
     
