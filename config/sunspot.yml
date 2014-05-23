@@ -3,6 +3,7 @@ production:
     hostname: localhost
     port: 8983
     log_level: WARNING
+    max_memory: 1G
     path: /solr/production
     # read_timeout: 2
     # open_timeout: 0.5
@@ -11,6 +12,7 @@ development:
   solr:
     hostname: localhost
     port: 8982
+    max_memory: 1G
     log_level: INFO
     path: /solr/development
    
@@ -19,5 +21,6 @@ test:
   solr:
     hostname: localhost
     port: 8981
+    max_memory: 1G
     log_level: WARNING
     path: /solr/test
