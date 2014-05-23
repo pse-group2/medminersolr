@@ -17,13 +17,10 @@ The following commands download and install the latest version of Ruby on Rails.
 source ~/.rvm/scripts/rvm
 rvm use 2.1.1
 ```
-<<<<<<< HEAD
-For easy installation of the gems needed for the project, we use bundler:
-=======
 Instead of 2.1.1 you can also use the latest version of ruby.
 
-To easily install the gems needed for the project, we use bundler:
->>>>>>> FETCH_HEAD
+For easy installation of the gems needed for the project, we use bundler:
+
 ```gem install bundler```
 Rails also needs the nodejs package to work with javascript:
 ```sudo apt-get install nodejs```
